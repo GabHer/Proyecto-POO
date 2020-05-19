@@ -1,0 +1,13 @@
+{
+    "name": "gabriela/backend",
+    "description": "Backend proyecto FIND",
+    "authors": [
+        {
+            "name": "Gabriela",
+            "email": "gabrielacortes987@gmail.com"
+        }
+    ],
+    "require": {
+        "kreait/firebase-php": "^5.1"
+    }
+}

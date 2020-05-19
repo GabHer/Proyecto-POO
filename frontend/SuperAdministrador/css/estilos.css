@@ -1,0 +1,58 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+header{
+    width: 100%;
+    position: fixed;
+    z-index: 100;
+}
+
+.btn-secondary{
+    background-color: #0e7248!important;
+    border-color: #0b5838!important;
+}
+
+.btn-secondary:hover{
+    background-color: #0a4d31!important;
+    border-color: #0b5838!important;
+}
+
+.letter{
+    font-family: 'Anton';
+    font-size: 50px;
+}
+
+.card-header{
+    background-color: #f9a826!important;
+}
+
+.btn-link {
+    font-weight: 500;
+    color: #0e7248!important;
+    text-decoration: none;
+    font-family: 'Anton';
+}
+
+.btn-outline-primary{
+    background-color: #0e724800;
+    border-color: #0e7248!important;
+    color: #0e7248!important;
+    margin-left: 10px;
+    border-radius: 15px;
+}
+
+
+.btn-outline-primary:hover{
+    background-color: #0b633e!important;
+    border-color: #0e7248!important;
+    color: white!important;
+}
+
+.btn-outline-primary:focus{
+    border-color: #0b633e!important;
+    box-shadow: 0 0px 0px #094b2f inset, 0 0 8px #0b633e!important;
+    outline: 0 none;
+    cursor: pointer;
+}
