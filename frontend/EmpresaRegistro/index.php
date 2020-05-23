@@ -103,7 +103,7 @@
         <input type="file" onchange="subirBanner()" name="urlBanner" id="urlBanner"></br>
         <div class="advice">Upload a banner</div></br>
         <button type="button" onclick="actualizar();" id="btn-actualizar" class="btn-save-changes">Actualizar</button><br>
-        <div id="loading" style="display: none;"class="spinner-border" role="status">
+        <div id="loading" style="display: none;"class="spinner-grow" role="status">
           <span  class="sr-only">Loading...</span>
         </div>
         <input id="key" type="hidden">

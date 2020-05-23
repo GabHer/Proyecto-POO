@@ -5,8 +5,6 @@
     require_once('../class/class-database.php');
     $database= new Database();
     session_start();
-    
-    
     $_POST = json_decode(file_get_contents('php://input'), true);
     $_PUT = json_decode(file_get_contents('php://input'), true);
 

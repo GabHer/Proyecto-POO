@@ -65,6 +65,9 @@
                     data-html="true" title="<b>Ficha promocional</b>">
                         <span> <i class="fas fa-print fa-3x"></i></span>
                     </button>
+                    <button type="button" href="#" data-toggle="modal" data-target="#eliminarCuenta" class="btn btn-secondary letter" data-toggle="tooltip" data-html="true" data-placement="bottom" title="<b>Eliminar cuenta</b>">
+                            <span><i class="fas fa-trash-alt fa-3x"></i></span>
+                    </button>
                     <hr style="background-color: #f9a826;">
                 </div>
             </div>
@@ -210,9 +213,35 @@
             </div>
         </div>
 
-
     </div>
 
+    <!-- Modal Eliminar cuenta -->
+    <div class="modal fade" id="eliminarCuenta" tabindex="-1" role="dialog" aria-labelledby="modal-eliminarCuenta"
+            aria-hidden="true" style="font-family: 'Comic Neue', cursive;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #f9a826;">
+                        <h5 class="modal-title" style="color: red">Delete</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div style="color:  #0e7248" class="text-center modal-body" >
+                        ¿Estás seguro que deseas eliminar tu cuenta empresarial en FIND?<br> 
+                        ¡Te extrañaremos!
+                    </div>
+                    <div class="modal-footer" >
+                    <div id="loadingEliminar" style="display: none; color: #0e7248;"class="spinner-border" role="status">
+                        <span  class="sr-only">Loading...</span>
+                    </div>
+                        <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
+                        <a onclick="eliminarEmpresa()" style="cursor: pointer" class="btn btn-outline-primary" >Yes</a>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    
     <footer class="pt-4 my-md-5 pt-md-5 border-top">
         <div class="row">
         <div class="col-12 col-md">

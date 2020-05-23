@@ -54,6 +54,30 @@
                 ->getValue();
                 echo json_encode($result);
         }
+        public function obtenerPromocion($db, $id){
+                $result= $db->getReference("promociones")
+                ->getChild($id)
+                ->getValue();
+                echo json_encode($result);
+        }
+
+        public function guardarPromocionFav($db, $id){
+                $promocionfav= $this->getData();
+                $result= $db->getReference("users/".$id."/promocionesFavoritas"."/")
+                    ->push($promocionfav);
+        
+                if ($result->getKey()!= null)
+                    return '{"mensaje":"Promoción favorita almacenada","key":"'.$result->getKey().'"}';
+                else
+                    return '{"mensaje":"Promoción favorita no pudo ser almacenada"}';
+        }
+
+        public static function obtenerPromocionesFav($db, $id){
+                $result= $db->getReference("users/".$id."/promocionesFavoritas"."/")
+                ->getValue();
+                echo json_encode($result);
+        }
+
 
         public function getData(){
             $result['idEnterprise']=$this->idEnterprise;

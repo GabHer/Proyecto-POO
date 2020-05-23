@@ -10,6 +10,9 @@ header{
     z-index: 100;
 }
 
+a:hover{
+    cursor: pointer;
+}
 
 .btn-outline-primary{
     background-color: #0e724800;
@@ -61,16 +64,8 @@ header{
 .star{
     color: rgb(245, 184, 16)!important;
 }
-.heart{
-    color: rgb(245, 16, 16)!important;
-}
 
-.efect:hover{
-    
-    transform: translate(3px);
-    box-shadow: 0 17px 16px rgb(0, 0, 0,0.2);
-    
-}
+
 
 .form-control:focus {
     border-color: #ffffff!important; 

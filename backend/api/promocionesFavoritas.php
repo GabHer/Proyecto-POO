@@ -1,4 +1,5 @@
 <?php
+
     header("Content-Type: application/json");
     include_once("../class/class-promocion.php");
     require_once('../class/class-database.php');
@@ -21,19 +22,16 @@
                 $_POST['descriptionPromo']
             );
 
-            echo $Promocion-> guardarPromocion($database->getDB());
+
+            echo $Promocion-> guardarPromocionFav($database->getDB(), $_GET['idUsuario']);
         break;
         case 'GET':
-            if(isset($_GET['idPromocion']))
-                Promocion ::obtenerPromocion($database->getDB(), $_GET['idPromocion']);
-            else
-                Promocion ::obtenerPromociones($database->getDB());
-            
+            Promocion::obtenerPromocionesFav($database->getDB(), $_GET['idUsuario']);
         break;
         case 'PUT':
+            
         break;
-        case 'DELETE':
-            //Eliminar            
+        case 'DELETE':       
         break;
 
     }

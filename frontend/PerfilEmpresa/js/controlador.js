@@ -221,7 +221,7 @@ function guardarProductos(){
 }
 
 function registroPromociones(){
-    document.getElementById('area').innerHTML= ''
+    document.getElementById('area').innerHTML= '';
     axios({
         url:'../../backend/api/productos.php?idEmpresa='+idEmpresa,
         method:'get',
@@ -488,11 +488,26 @@ function impFichaProm(){
     document.getElementById('area').innerHTML=`
     <div style= "text-align:center; font-family: 'Comic Neue', cursive;" class="m-auto">
     <div >Choose product</div>
-    <select style="background-color: white" name="" id="" >
-    <option value="">Product</option>
+    <select onchange="abrirHtmlFicha()" style="background-color: white" name="idProductQr" id="idProductQr" >
+    <option value="">Select</option>
     </select>
     </div>
     `;
+
+    axios({
+        url:'../../backend/api/productos.php?idEmpresa='+idEmpresa,
+        method:'get',
+        dataType:'json'
+    }).then((res)=>{
+        console.log(res.data);
+        for(let llave in res.data){
+        document.getElementById('idProductQr').innerHTML+=
+        `<option value="${llave}">${res.data[llave].nameProduct}</option>`
+        
+    }
+    }).catch((error)=>{
+        console.error(error);
+    });
 
 };
 
@@ -504,6 +519,19 @@ function imprimir(){
     print();
 }
 
+function eliminarEmpresa(){
+    document.getElementById('loadingEliminar').style.display='inline';
+    axios({
+      url:'../../backend/api/empresas.php?idEmpresa='+idEmpresa,
+      method: 'delete',
+      dataType: 'json'
+    }).then((res)=>{
+      window.location.href= "../../backend/class/logoutEmpresa.php";
+      console.log(res.data);
+    }).catch((error)=>{
+      console.error(error);
+    });
+}
 
 function validarCampoVacio(id){
     if (document.getElementById(id).value == ''){

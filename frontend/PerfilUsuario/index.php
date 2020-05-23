@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.2.1/css/ol.css" type="text/css">
     <link rel="shortcut icon" href="img/carreta.png">
     <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.2.1/build/ol.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Comic+Neue&display=swap" rel="stylesheet"> 
     
     <title>Profile Client</title>
 
@@ -45,8 +44,11 @@
                           <a href="../UsuarioRegistro/index.php" type="button" class="btn btn-secondary letter" data-toggle="tooltip" data-placement="bottom" data-html="true" title="<b>Editar datos</b>">
                             <span> <i class="far fa-address-card fa-3x"></i></span>
                           </a>
-                          <button onclick="verPerfilesEmpresas()" type="button" class="btn btn-secondary letter" data-toggle="tooltip" data-placement="bottom" data-html="true" title="<b>Ver perfil empresa</b>">
+                          <button onclick="verPerfilesEmpresas()" type="button" class="btn btn-secondary letter" data-toggle="tooltip" data-placement="bottom" data-html="true" title="<b>Ver perfiles empresas</b>">
                             <span> <i class="fas fa-building fa-3x"></i></i></span>
+                          </button>
+                          <button type="button" onclick="location.href='../Carrito/index.php'" class="btn btn-secondary letter" data-toggle="tooltip" data-html="true" data-placement="bottom" title="<b>Ve al carrito</b>">
+                            <span> <i class="fas fa-cart-arrow-down fa-3x"></i></i></span>
                           </button>
                           <button  type="button" onclick="promEnGoogle()" class="btn btn-secondary letter" data-toggle="tooltip" data-placement="bottom" data-html="true" title="<b>Promociones en google maps</b>">
                             <span> <i class="fas fa-map-marked-alt fa-3x"></i></span>
@@ -54,8 +56,8 @@
                           <button onclick="favEmpresasPromo()" type="button" class="btn btn-secondary letter" data-toggle="tooltip" data-placement="bottom" data-html="true" title="<b>Empresas y promociones favoritas</b>">
                             <span><i class="fas fa-heart fa-3x"></i></i></span> 
                           </button>
-                          <button type="button" onclick="location.href='../Carrito/index.html'" class="btn btn-secondary letter" data-toggle="tooltip" data-html="true" data-placement="bottom" title="<b>Ve al carrito</b>">
-                            <span> <i class="fas fa-cart-arrow-down fa-3x"></i></i></span>
+                          <button type="button" href="#" data-toggle="modal" data-target="#eliminarCuenta" class="btn btn-secondary letter" data-toggle="tooltip" data-html="true" data-placement="bottom" title="<b>Eliminar cuenta</b>">
+                            <span><i class="fas fa-trash-alt fa-3x"></i></span>
                           </button>
                           <hr style="background-color: #f9a826;">
                         </div>
@@ -144,6 +146,31 @@
       </div>
     </div>
 
+    <!-- Modal Eliminar cuenta -->
+    <div class="modal fade" id="eliminarCuenta" tabindex="-1" role="dialog" aria-labelledby="modal-eliminarCuenta"
+            aria-hidden="true" style="font-family: 'Comic Neue', cursive;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #f9a826;">
+                        <h5 class="modal-title" style="color: red">Delete</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div style="color:  #0e7248" class="text-center modal-body" >
+                        ¿Estás seguro que deseas eliminar tu cuenta en FIND?<br> 
+                        ¡Te extrañaremos!
+                    </div>
+                    <div class="modal-footer" >
+                    <div id="loadingEliminar" style="display: none; color: #0e7248;"class="spinner-border" role="status">
+                        <span  class="sr-only">Loading...</span>
+                      </div>
+                        <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
+                        <a onclick="eliminarUsuario()" style="cursor: pointer" class="btn btn-outline-primary" >Yes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     <a class="back-to-top"><img src="img/top.png" alt="" srcset=""></a>
     <script src="js/jquery-3.4.1.min.js"></script>

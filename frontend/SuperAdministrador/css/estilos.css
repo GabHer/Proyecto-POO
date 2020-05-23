@@ -19,11 +19,6 @@ header{
     border-color: #0b5838!important;
 }
 
-.letter{
-    font-family: 'Anton';
-    font-size: 50px;
-}
-
 .card-header{
     background-color: #f9a826!important;
 }
@@ -55,4 +50,13 @@ header{
     box-shadow: 0 0px 0px #094b2f inset, 0 0 8px #0b633e!important;
     outline: 0 none;
     cursor: pointer;
+}
+
+input:focus{
+    border-color: #0b633e!important;
+    box-shadow: 0 0 0 0.2rem #0f774c!important;
+}
+
+.card{
+    border-radius: 15px!important;
 }

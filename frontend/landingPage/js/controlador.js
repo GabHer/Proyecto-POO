@@ -8,9 +8,9 @@ function abrirModalEmpresa(){
     $('#modal-ingresarEmpresa').modal('show');
 
 }
-function abrirModalSuperUsuario(){
+function abrirModalSuperAdmin(){
     $('#tipoUsuario').modal('hide');
-    $('#modal-ingresarSuperUsuario').modal('show');
+    $('#modal-ingresarSuperAdmin').modal('show');
 
 }
 
@@ -64,6 +64,34 @@ function loginEmpresa(){
         else
             document.getElementById('errorEmpresa').style.display='block'
             document.getElementById('errorEmpresa').innerHTML =res.data.mensaje;
+        
+    }).catch(error=>{
+        console.log(error);
+    });
+}
+
+function loginSuperAdmin(){
+    $("#loadingSuperAdmin").show();
+    axios({
+        url:"../../backend/api/loginSuperAdmin.php",
+        method:"post",
+        responseType:"json",
+        data:{
+            email: document.getElementById('emailSuperAdmin').value,
+            password: document.getElementById('passwordSuperAdmin').value
+        }
+    }).then(res=>{
+        console.log(res);
+        $("#loadingSuperAdmin").hide();
+        if(res.data.codigoResultado==1){
+            $('#modal-ingresarSuperAdmin').modal('hide');
+            document.getElementById('email').value ="";
+            document.getElementById('password').value= "";
+            window.location.href ="../SuperAdministrador/index.php";
+        }
+        else
+            document.getElementById('errorSuperAdmin').style.display='block'
+            document.getElementById('errorSuperAdmin').innerHTML =res.data.mensaje;
         
     }).catch(error=>{
         console.log(error);

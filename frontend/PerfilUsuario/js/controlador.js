@@ -12,32 +12,36 @@ axios({
 });
 
 function verPerfilesEmpresas() {
+  document.getElementById('area').innerHTML = ''
   axios({
     url:'../../backend/api/empresas.php',
     method: 'GET',
     dataType: 'json'
   }).then((res)=>{
   console.log(res.data);
-  document.getElementById('area').innerHTML = ''
   for(let llave in res.data){
     document.getElementById('area').innerHTML += `
     <div class="col-xl-3 col-lg-4 col-mol-6 col-12 cardE" style="border-radius: 10px;">
     <div class="row row-cols-1 row-cols-md-2" >
     <div class="col mb-4">
       <div class="card " style="font-family: 'Comic Neue', cursive; margin-top:5px">
-        <img style="height:150px; width: 240px; border-radius: 10px 10px 0px 0px;" src="../PerfilEmpresa/${res.data[llave].urlProfileImage}" class="card-img-top" alt="...">
-        <div class="card-body ">
-          <h5 class="card-title"><b>${res.data[llave].nameEnterprise}</b></h5>
-          <hr>
-          <p class="card-text">Dirección: ${res.data[llave].addressEnterprise}<br>Telefono: ${res.data[llave].phoneNumberEnterprise}<br>Email: ${res.data[llave].emailEnterprise}</p>
-        </div>
+      <img style="height:150px; width: 240px; border-radius: 10px 10px 0px 0px;" src="../PerfilEmpresa/${res.data[llave].urlProfileImage}" class="card-img-top" alt="...">
+      <div class="card-body ">
+      <h5 class="card-title"><b>${res.data[llave].nameEnterprise}</b></h5>
+      <hr>
+      <p class="card-text">Dirección: ${res.data[llave].addressEnterprise}<br>Telefono: ${res.data[llave].phoneNumberEnterprise}<br>Email: ${res.data[llave].emailEnterprise}</p>
+      <div  class="text-center"><a onclick="agregarEmpresaFav('${llave}')"><i id="iconHeart${llave}" style="color:red;  display: inline;" class=" fas fa-heart heart fa-2x efect data-toggle="tooltip" data-placement="top" data-html="true" title="Add to favorites""></i></a></div>
+      <div class="text-center" id="loadingFav${llave}" style="display: none; color:#0b633e;">
+          <span >Loading...</span>
+      </div><br>
+      <div id="msjIcon${llave}" class="text-center" style="display:none; color:#0b633e;"><b>¡Agregada a favoritas!</b><div>
+      </div>
       </div>
     </div>
     </div>
 
       <ul style="color:white; font-size: 20px; text-align: center" onclick="productsEnterprise('${llave}')" class=" ml-auto">
       See Products</ul>
-
     </div>
         `
       }
@@ -45,6 +49,58 @@ function verPerfilesEmpresas() {
     console.error(error);
   });
 }
+
+function agregarEmpresaFav(idEmpresa){
+  var empresa;
+  document.getElementById(`loadingFav${idEmpresa}`).style.display ='inline';
+  document.getElementById(`iconHeart${idEmpresa}`).style.color = '#0b633e';
+  axios({
+    url:'../../backend/api/empresas.php',
+    method: 'GET',
+    dataType: 'json'
+  }).then((res)=>{
+  console.log(res.data);
+      for(let i in res.data){
+        if(i==idEmpresa){
+          empresa ={
+            nameEnterprise: res.data[i].nameEnterprise,
+            descriptionEnterprise: res.data[i].descriptionEnterprise,
+            fundationDate: res.data[i].fundationDate,
+            emailEnterprise: res.data[i].emailEnterprise,
+            passwordEnterprise: res.data[i].passwordEnterprise,
+            postalCode: res.data[i].postalCode,
+            country: res.data[i].country,
+            state: res.data[i].state,
+            addressEnterprise: res.data[i].addressEnterprise,
+            phoneNumberEnterprise: res.data[i].phoneNumberEnterprise,
+            latitute: res.data[i].latitute,
+            longitude: res.data[i].longitude,
+            urlProfileImage:res.data[i].urlProfileImage,
+            urlBanner: res.data[i].urlBanner
+          }
+          axios({
+            url:'../../backend/api/empresasFavoritas.php?idUsuario='+id,
+            method: 'post',
+            dataType: 'json',
+            data: empresa
+          }).then((resp)=>{
+            console.log(resp.data);
+            document.getElementById(`loadingFav${idEmpresa}`).style.display ='none';
+            document.getElementById(`iconHeart${idEmpresa}`).style.display= 'none';
+            document.getElementById(`msjIcon${idEmpresa}`).style.display= 'inline';
+          }).catch((error1)=>{
+            console.error(error1);
+          });
+
+        }
+      }
+      
+  }).catch((error2)=>{
+    console.error(error2);
+  });
+
+}
+
 
 function favEmpresasPromo() {
   document.getElementById('area').innerHTML = '';
@@ -54,61 +110,98 @@ function favEmpresasPromo() {
   <div class="btn-group m-auto"  style="margin-left:50px;" role="group" aria-label="Basic example">
     <button onclick="favEmpresas()" type="button" class="btn btn-secondary">Empresas</button>
     <button onclick="favPromo()" type="button" class="btn btn-secondary">Promociones</button>
+    <div id="loadingArea2" style="display: none;" class="spinner-border" role="status">
+            <span  class="sr-only">Loading...</span>
+    </div><br>
+    </div>
+    </div>
+    <div class="row" style="margin-top: 60px;" id="area2">
   </div>
-  </div>
-  <div class="row" style="margin-top: 60px;" id="area2"></div>
   </div>
   `;
 }
 
 function favEmpresas() {
   document.getElementById('area2').innerHTML = "";
-  for (i = 0; i < usuarios.length; i++) {
-    for (j = 0; j < usuarios[i].EmpresasFav.length; j++) {
+  document.getElementById('loadingArea2').style.display= 'inline';
+  axios({
+    url:'../../backend/api/empresasFavoritas.php?idUsuario='+id,
+    method: 'get',
+    dataType: 'json',
+  }).then((resp)=>{
+    console.log(resp.data);
+    for (let i in resp.data) {
+    document.getElementById('loadingArea2').style.display= 'none';
       document.getElementById('area2').innerHTML += `
-    <div class="col-xl-3 col-lg-4 col-mol-6 col-12">
-    <div class="row row-cols-1 row-cols-md-2" >
-    <div class="col mb-4">
-      <div class="card" style="font-family: 'Comic Neue', cursive;">
-        <img style="height:150px; width: 240px;" src="${usuarios[i].EmpresasFav[j].img}" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title"><b>${usuarios[i].EmpresasFav[j].nombre}</b></h5>
-          <hr>
-          <p class="card-text">Dirección: ${usuarios[i].EmpresasFav[j].direccion}<br>Telefono: ${usuarios[i].EmpresasFav[j].telefono}<br>Email: ${usuarios[i].EmpresasFav[j].email}</p>
+      <div class="col-xl-3 col-lg-4 col-mol-6 col-12">
+      <div class="row row-cols-1 row-cols-md-2" >
+      <div class="col mb-4">
+        <div class="card" style="font-family: 'Comic Neue', cursive;">
+          <img style="height:150px; width: 240px;" src="../PerfilEmpresa/${resp.data[i].urlProfileImage}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title"><b>${resp.data[i].nameEnterprise}</b></h5>
+            <hr>
+            <p class="card-text">Dirección: ${resp.data[i].addressEnterprise}<br>Telefono: ${resp.data[i].phoneNumberEnterprise}<br>Email: ${resp.data[i].emailEnterprise}</p>
+          </div>
         </div>
       </div>
-    </div>
-    </div>
-    </div>
-        `
+      </div>
+      </div>
+          `
     }
-  }
+
+  }).catch((error)=>{
+    console.error(error);
+  });
 }
 
 function favPromo() {
   document.getElementById('area2').innerHTML = "";
-  for (i = 0; i < usuarios.length; i++) {
-    for (j = 0; j < usuarios[i].productosfav.length; j++) {
-      document.getElementById('area2').innerHTML += `
-    <div class="col-xl-3 col-lg-4 col-mol-6 col-12">
-    <div class="row row-cols-1 row-cols-md-2" >
-    <div class="col mb-4">
-      <div class="card" style="font-family: 'Comic Neue', cursive;">
-        <img style="height:150px; width: 230px;" src="${usuarios[i].productosfav[j].img}" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title"><b>${usuarios[i].productosfav[j].nombreProducto}</b></h5>
-          <hr>
-          <h6 class="card-title"><b>${usuarios[i].productosfav[j].enterprise}</b></h6>
-          <p class="card-text">Categoría: ${usuarios[i].productosfav[j].categoria}<br>Precio: ${usuarios[i].productosfav[j].precio}<br>Descripción: ${usuarios[i].productosfav[j].descripcion}</p>
-        </div>
-      </div>
-    </div>
-    </div>
-    </div>
-        `
+  document.getElementById('loadingArea2').style.display= 'inline';
+  axios({
+    url:'../../backend/api/promocionesFavoritas.php?idUsuario='+id,
+    method: 'get',
+    dataType: 'json',
+  }).then((res)=>{
+    console.log(res.data);
+    axios({
+      url:'../../backend/api/empresas.php',
+      method: 'GET',
+      dataType: 'json'
+    }).then((resp)=>{
+    console.log(resp.data);
+    for (let i in res.data) {
+      for(let j in resp.data){
+      if(j==res.data[i].idEnterprise){
+          document.getElementById('loadingArea2').style.display= 'none';
+          document.getElementById('area2').innerHTML += `
+          <div class="col-xl-3 col-lg-4 col-mol-6 col-12">
+          <div class="row row-cols-1 row-cols-md-2" >
+          <div class="col mb-4">
+            <div class="card" style="font-family: 'Comic Neue', cursive;">
+              <img style="height:150px; width: 230px;" src="../PerfilEmpresa/${res.data[i].urlProductPromoImage}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title"><b>${res.data[i].products}</b></h5>
+                <hr>
+                <h6 class="card-title"><b>${resp.data[j].nameEnterprise}</b></h6>
+                <p class="card-text">Categoría: ${res.data[i].selectCategory}<br>Precio: $${res.data[i].discountPromo}<br>Descripción: ${res.data[i].descriptionPromo}</p>
+              </div>
+            </div>
+          </div>
+          </div>
+          </div>
+              `
     }
   }
+  }
+  }).catch((error1)=>{
+    console.error(error1);
+  });
+  }).catch((error2)=>{
+    console.error(error2);
+  });
 }
+
 
 function promEnGoogle() {
   document.getElementById('area').innerHTML = '';
@@ -163,6 +256,21 @@ function productsEnterprise(indiceEnterprise){
   </div>
   <hr>`
   }}).catch((error)=>{
+    console.error(error);
+  });
+}
+
+
+function eliminarUsuario(){
+  document.getElementById('loadingEliminar').style.display='inline';
+  axios({
+    url:'../../backend/api/usuarios.php?idUsuario='+id,
+    method: 'delete',
+    dataType: 'json'
+  }).then((res)=>{
+    window.location.href= "../../backend/class/logout.php";
+    console.log(res.data);
+  }).catch((error)=>{
     console.error(error);
   });
 }

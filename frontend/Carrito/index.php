@@ -37,7 +37,7 @@
 
   <div class="row" >
     <div class="col-xl-2 col-lg-1 col-12" >
-      
+      <input id="idUsuario" type="text" value="<?php echo $_COOKIE["id"] ?>">
       <div id="categorias">
         <ul>
           <li onclick="generateProduct('Technology')"><span><i class="fas fa-laptop"></i></span><b>Technology</b></li>
@@ -137,6 +137,32 @@
           </div>
           </div>
         </div>
+        <div class="col-xl-3 col-lg-4 col-md-4 col-xs-6 col-12" style="margin-top: 30px;">
+          <div class="card-deck" onclick="generateProduct('Health')">
+            <div class="card mx-1">
+              <img src="img/health.jpeg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h2><b>Health</b></h2>
+                <h3>$ -50%</h3>
+                <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur fuga illum laudantium ducimus beatae fugit.
+                  content.</p>
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-4 col-xs-6 col-12" style="margin-top: 30px;">
+          <div class="card-deck" onclick="generateProduct('Education')">
+            <div class="card mx-1">
+              <img src="img/education.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h2><b>Education</b></h2>
+                <h3>$ -50%</h3>
+                <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur fuga illum laudantium ducimus beatae fugit.
+                  content.</p>
+            </div>
+          </div>
+          </div>
+        </div>
         
 
 
@@ -169,7 +195,7 @@
       <div class="modal"  tabindex="-1" role="dialog" id="modal-qualify">
         <div class="modal-dialog" style="top: 30%;" role="document">
           <div class="modal-content" >
-            <div class="modal-header" style="background-color: #f9a826;">
+            <div class="modal-header" style="background-color: #f9a826; ">
               <h5 class="modal-title">Qualify this promotion</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -209,11 +235,11 @@
               </button>
             </div>
             <div class="modal-body">
-                <input class="form-control" type="text">
+                <input class="form-control" id="comment" type="text">
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-secondary">Save changes</button>
+              <button type="button" class="btn btn-secondary" onclick="guardarComentario()">Save changes</button>
             </div>
           </div>
         </div>

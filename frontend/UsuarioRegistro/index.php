@@ -102,7 +102,7 @@
         <div style="padding-top: 15px;">Before registering, check that no field is incorrect!</div>
         <button id="btn-register" type="button" onclick="registrarUsuario()" class="fourth" value="Registrar">Registrar</button>
         <button id="btn-actualizar" type="button" onclick="actualizar()" class="fourth" style="display:none;">Actualizar</button>
-        <div id="loading" style="display: none;"class="spinner-border" role="status">
+        <div id="loading" style="display: none;"class="spinner-grow" role="status">
           <span  class="sr-only">Loading...</span>
         </div><br>
         <input id="key" type="hidden">

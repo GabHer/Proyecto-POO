@@ -81,6 +81,23 @@ class Empresa{
             return '{"mensaje":"Error al guardar la empresa"}';
     }
 
+    public function guardarEmpresaFav($db, $id){
+        $empresafav= $this->getData();
+        $result= $db->getReference("users/".$id."/empresasFavoritas"."/")
+            ->push($empresafav);
+
+        if ($result->getKey()!= null)
+            return '{"mensaje":"Empresa favorita almacenada","key":"'.$result->getKey().'"}';
+        else
+            return '{"mensaje":"Empresa favorita no pudo ser almacenada"}';
+    }
+
+    public static function obtenerEmpresasFav($db, $id){
+        $result= $db->getReference("users/".$id."/empresasFavoritas"."/")
+        ->getValue();
+        echo json_encode($result);
+    }
+
     public static function obtenerEmpresas($db){
         $result= $db->getReference('enterprises')
             ->getSnapshot()
