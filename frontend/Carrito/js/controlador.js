@@ -1,6 +1,7 @@
 var promociones;
 var nameE;
 var idPromocion;
+cantProductosCarrito();
 axios({
         url:'../../backend/api/promociones.php',
         method:'get',
@@ -13,6 +14,7 @@ axios({
 });
 
 function generateProduct(type){
+    document.getElementById("areaUl").innerHTML = '';
     document.getElementById('area').innerHTML= "";
     document.getElementById('titulo').innerHTML= type;
         axios({
@@ -47,6 +49,7 @@ function generateProduct(type){
                     </div>`
                     }
                 }
+
             }
         }
         
@@ -58,6 +61,8 @@ function generateProduct(type){
 
 function detalles(i){
     idPromocion = i;
+    document.getElementById('msjEstrellas').style.display= 'none';
+    document.getElementById('msjComentarios').style.display='none';
     actualizarComentarios();
     $("#modal-detalles").modal("show");
     document.getElementById("tituloDetalle").innerHTML= `<h5 class="modal-title" style="color: #0e7248;" ><b>${promociones[i].products}</b></h5>`;
@@ -69,18 +74,51 @@ function detalles(i){
     <p class="card-text">${promociones[i].descriptionPromo}</p>
     <hr>
     <div style="text-align: center;">
-        <a href="http://"><i class="fas fa-plus-circle fa-3x efect agg  data-toggle="tooltip" data-placement="top" data-html="true" title="Add to shopping cart""></i></a>  
+        <a onclick="agregarCarrito('${i}')"><i id="iconoPlus${i}" style="color:black;" class="fas fa-plus-circle fa-3x efect data-toggle="tooltip" data-placement="top" data-html="true" title="Add to shopping cart""></i></a>  
         <a href="http://"data-toggle="modal" data-target="#modal-comment"><i class="fas fa-comments fa-3x efect comment data-toggle="tooltip" data-placement="top" data-html="true" title="Add coments""></i></a>  
         <a href="http://"data-toggle="modal" data-target="#modal-qualify"><i class="fas fa-star star fa-3x efect data-toggle="tooltip" data-placement="top" data-html="true" title="Qualify promotion""></i></a>  
         <a onclick="guardarPromocionFav('${i}')"><i id="iconoHeart${i}" style="color:red;" class="fas fa-heart fa-3x efect data-toggle="tooltip" data-placement="top" data-html="true" title="Add to favorites""></i></a>  
     </div>
+    <div id="msjAgregar" style="display: none; color:#0e7248; margin:auto; ">Agregando a carrito...</div>
     <hr>
-    <div class="row" style="margin-left:5px">Puntuaciones</div><hr>
+    <div class="row" style="margin-left:5px">Puntuaciones</div>
+    <div class="text-center star" id="estrellas"></div><hr>
     <div class="row" style="margin-left:5px">Comments</div>
     <div id="areaComents"></div>
     </div>
     <hr>
     `;
+    calcEstrellas();
+}
+
+function calcEstrellas(){
+    axios({
+        url:'../../backend/api/promociones.php?idPromocion='+idPromocion,
+        method:'get',
+        dataType:'json'
+    }).then((res)=>{
+            promo = res.data;
+            let contador=0;
+            let suma=0;
+            for(let k in promo.puntuacion){
+                    contador++;
+                    suma += parseInt(promo.puntuacion[k].calificacion);
+            }
+            
+            // console.log(suma);
+            // console.log(contador);
+            let total= Math.ceil(suma/contador);
+            // console.log(total);
+            generarEstrellas(total);
+
+            if(suma==0){
+                document.getElementById('msjEstrellas').style.display= 'inline';
+            }
+    }).catch((error)=>{
+            console.error(error);
+    });
+
+    
 }
 
 function guardarPromocionFav(idPromocion){
@@ -117,11 +155,10 @@ function guardarPromocionFav(idPromocion){
         }).catch((error2)=>{
             console.error(error2);
         });
-
-
 }
 
 function guardarComentario(){
+    document.getElementById('loading').style.display='inline';
     console.log(idPromocion);
     console.log(document.getElementById('idUsuario').value);
 
@@ -137,6 +174,7 @@ function guardarComentario(){
         data: comentario
     }).then((res)=>{
         console.log(res.data);
+        document.getElementById('loading').style.display='none';
         $("#modal-comment").modal("hide");
         document.getElementById('comment').value="";
         document.getElementById('areaComents').innerHTML="";
@@ -147,12 +185,19 @@ function guardarComentario(){
 }
 
 function actualizarComentarios(){
+    document.getElementById('loadingComment').style.display='inline';
+    document.getElementById('msjComentarios').style.display='none';
     axios({
         url:'../../backend/api/comentarios.php?idPromocion=' + idPromocion,
         method:'get',
         dataType:'json',
     }).then((res)=>{
+        if(res.data==null){
+            document.getElementById('loadingComment').style.display='none';
+            document.getElementById('msjComentarios').style.display='inline';
+        }
         for(let i in res.data){
+            console.log(res.data);
             axios({
                 url:'../../backend/api/usuarios.php?idUsuario=' + res.data[i].idUsuario,
                 method:'get',
@@ -172,13 +217,208 @@ function actualizarComentarios(){
                 </div>
                 </div>
             </div>
-            <hr>`}
+            <hr>`
+            document.getElementById('loadingComment').style.display='none';
+        }
         ).catch((error1)=>{
             console.error(error1);
         });
         }}).catch((error2)=>{
             console.error(error2);
         });
+}
+
+function agregarCarrito(idPromocion){
+    document.getElementById('msjAgregar').style.display='inline';
+    axios({
+        url:'../../backend/api/promociones.php?idPromocion='+idPromocion,
+        method: 'GET',
+        dataType: 'json'
+        }).then((res)=>{
+        promocion={
+            idEnterprise: res.data.idEnterprise,
+            products: res.data.products,
+            selectCategory:res.data.selectCategory,
+            priceProduct: res.data.priceProduct,
+            descriptionPromo: res.data.descriptionPromo,
+            Discount: res.data.Discount,
+            discountPromo: res.data.discountPromo,
+            startPromo: res.data.startPromo,
+            finishPromo: res.data.finishPromo,
+            sucursal:res.data.sucursal,
+            urlProductPromoImage: res.data.urlProductPromoImage}
+        
+        axios({
+            url:'../../backend/api/carrito.php?idUsuario='+document.getElementById('idUsuario').value,
+            method: 'post',
+            dataType: 'json',
+            data: promocion
+        }).then((resp)=>{
+            document.getElementById('msjAgregar').style.display='none';
+            document.getElementById(`iconoPlus${idPromocion}`).style.color = 'gray';
+            cantProductosCarrito();
+            console.log(resp.data);
+        }).catch((error1)=>{
+            console.error(error1);
+        });
+        }).catch((error2)=>{
+            console.error(error2);
+        });
+}
+
+var name;
+function mostrarPromocionesAgregadas(){
+    document.getElementById('tabla-carrito').innerHTML="";
+    document.getElementById('procesar').style.display='none';
+    document.getElementById('msjCompras').style.display='none';
+    document.getElementById('loadingCompras').style.display='inline';
+    axios({
+        url:'../../backend/api/usuarios.php?idUsuario=' + document.getElementById('idUsuario').value,
+        method:'get',
+        dataType:'json'
+    }).then((res)=>{
+        console.log(res.data);
+        document.getElementById('tituloCarrito').innerHTML=`<h5 class="modal-title" style="color: #0e7248;" ><b>${res.data.name} ${res.data.lastName}</b></h5>`;
+        name= res.data.name;
+    }).catch((error)=>{
+        console.error(error);
+    });
+
+    axios({
+        url:'../../backend/api/carrito.php?idUsuario=' + document.getElementById('idUsuario').value,
+        method:'get',
+        dataType:'json'
+    }).then((res)=>{
+        if(res.data==null){
+            document.getElementById('msjCompras').style.display='inline';
+            document.getElementById('loadingCompras').style.display='none';
+        }
+        let contador=0;
+        for(let i in res.data){
+        contador++;
+        document.getElementById('tabla-carrito').innerHTML+=`
+        <tr class="text-center" id="${i}">
+        <td>${contador}</td>
+        <td><img style="width:40px; height:50px" src="${res.data[i].urlProductPromoImage}"></td>
+        <td>${res.data[i].products}</td>
+        <td>${res.data[i].discountPromo}</td>
+        <td>
+            <button style="cursor:pointer;" class="btn btn-danger btn-sm" onclick="eliminar('${i}')" type="button"><i class="fas fa-trash-alt"></i></button>
+        </td>
+    </tr>
+        `;
+    document.getElementById('loadingCompras').style.display='none';
+    }
+    }).catch((error)=>{
+        console.error(error);
+    });
+
+}
+
+function cantProductosCarrito(){
+    axios({
+        url:'../../backend/api/carrito.php?idUsuario=' + document.getElementById('idUsuario').value,
+        method:'get',
+        dataType:'json'
+    }).then((res)=>{
+        let contador=0;
+        for(let i in res.data){
+            contador ++;
+        }
+        document.getElementById('numeroP').innerHTML = `<h5 style="color: #0e7248; background-color:#f9a823; padding:5px">Carrito: ${contador}</h5> `;
+    }).catch((error)=>{
+        console.error(error);
+    });
+}
+
+function procesarCompra(){
+    document.getElementById('loadingCompras').style.display='inline';
+    axios({
+        url:'../../backend/api/carrito.php?idUsuario=' + document.getElementById('idUsuario').value,
+        method:'get',
+        dataType:'json'
+    }).then((res)=>{
+        if(res.data==null){
+            document.getElementById('loadingCompras').style.display='none';
+        }
+        let contador1=0;
+        let contador2=0;
+        for(let i in res.data){
+            contador1 += parseFloat(res.data[i].discountPromo);
+            contador2 += parseFloat(res.data[i].priceProduct) - parseFloat(res.data[i].discountPromo);
+        }
+        document.getElementById('totalPagar').innerHTML = `<b>$ ${contador1}</b>`;
+        document.getElementById('ahorro').innerHTML = `Lo ahorrado en esta compra es: <b>$ ${contador2}</b>`;
+        document.getElementById('msjPagar').innerHTML= `<h6 style="color: #0e7248;">${name} su total a pagar es:</h6>`;
+        document.getElementById('loadingCompras').style.display='none';
+        document.getElementById('procesar').style.display='inline';
+    }).catch((error)=>{
+        console.error(error);
+    });
+}
+
+function eliminar(id){
+    $("#"+id).remove();
+    axios({
+        url:'../../backend/api/carrito.php?idUsuario=' + document.getElementById('idUsuario').value + '&idPromoCarrito=' +id,
+        method:'delete',
+        dataType:'json'
+    }).then((res)=>{
+        console.log(res.data);
+        mostrarPromocionesAgregadas();
+        cantProductosCarrito();
+    }).catch((error)=>{
+        console.error(error);
+    });
+}
+
+function vaciarCarrito(){
+    document.getElementById('loadingCompras').style.display='inline';
+    axios({
+        url:'../../backend/api/carrito.php?idUser=' + document.getElementById('idUsuario').value,
+        method:'delete',
+        dataType:'json'
+    }).then((res)=>{
+        console.log(res.data);
+        document.getElementById('loadingCompras').style.display='none';
+        mostrarPromocionesAgregadas();
+        
+    }).catch((error)=>{
+        console.error(error);
+    });
+}
+
+function calificarPromocion(){
+    let calificacion= document.querySelector('input[type="radio"][name="star"]:checked')
+    console.log((calificacion==null)?'':calificacion.value);
+    console.log(idPromocion);
+    let puntuacion={
+        calificacion:(calificacion==null)?'':calificacion.value
+    }
+
+    axios({
+        url:'../../backend/api/calificacion.php?idPromocion=' + idPromocion,
+        method:'post',
+        dataType:'json',
+        data:puntuacion
+    }).then((res)=>{
+        console.log(res.data);
+        generarEstrellas((calificacion==null)?'':calificacion.value);
+        
+    }).catch((error)=>{
+        console.error(error);
+    });
+}
+
+function generarEstrellas(cant){
+    let estrellas = '';
+            for (let k = 0; k < cant; k++) {
+                estrellas+='<i class="fas fa-star"></i>';
+            }
+            for (let k = 0; k < 5-cant; k++) {
+                estrellas+='<i class="far fa-star"></i>';
+            }
+    document.getElementById('estrellas').innerHTML= estrellas;
 }
 
 $(function () {
@@ -203,3 +443,82 @@ jQuery('document').ready(function($){
     
 });
 // Termina código
+
+function autocompletado() {
+    document.getElementById("areaUl").innerHTML = '';
+    document.getElementById("area").innerHTML = '';
+    var promo=[];
+    for (let i in promociones){
+        promo.push(promociones[i].products);
+    }
+
+    var pal = document.getElementById("inSearch").value;
+    var tam = pal.length;
+    for(indice in promo){
+        var nombre = promo[indice];
+        var str = nombre.substring(0,tam);
+        if(pal.length <= nombre.length && pal.length != 0 && nombre.length != 0){
+            if(pal.toLowerCase() == str.toLowerCase()){
+                for(let i in promociones){
+                    if(promociones[i].products == promo[indice]){
+                    document.getElementById('area').innerHTML+=`
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-12 cardP">
+                    <div class="card-deck" onclick="detallesSearch('${i}')" style="margin-top:50px; padding:0px">
+                    <div class="card mx-1">
+                    <div class="card-img-top" style="color:#f9a826; background-size: cover; background-repeat: no-repeat; background-image: url(${promociones[i].urlProductPromoImage}); height: 300px;">
+                        <div><span style="background-color: rgb(0, 0, 0,0.60); font-size: 40px"> -${promociones[i].Discount}</span></div>
+                    </div>
+                    <div class="card-body">
+                    <h5><b>${promociones[i].products}</b></h5>
+                    <h5><b>Price: $${promociones[i].discountPromo} | </b><del>$${promociones[i].priceProduct}</del></h5>
+                    <h6>Category: <b>${promociones[i].selectCategory}</b></h6>
+                    <p class="card-text">${promociones[i].descriptionPromo}</p>
+                    </div>
+                    </div>
+                    <div class="card-t">
+                    <li style="color:white; font-size: 30px">
+                    See details</li>
+                    </div>
+                    </div>`
+                    }
+                }
+
+
+            }
+        }else{
+            window.location.href="index.php";
+        }
+    }
+}
+
+function detallesSearch(i){
+    idPromocion = i;
+    document.getElementById('msjComentarios').style.display='none';
+    actualizarComentarios();
+    $("#modal-detalles").modal("show");
+    document.getElementById("tituloDetalle").innerHTML= `<h5 class="modal-title" style="color: #0e7248;" ><b>${promociones[i].products}</b></h5>`;
+    document.getElementById("detalles").innerHTML= `
+    <div class="modal-body">
+    <img style="width:290px;" src="${promociones[i].urlProductPromoImage}">
+    <h5 style="margin-top:10px;"><b>-${promociones[i].Discount} | Price: $${promociones[i].discountPromo} | </b><del>$${promociones[i].priceProduct}</del></h5>
+    <p class="card-text">${promociones[i].descriptionPromo}</p>
+    <hr>
+    <div style="text-align: center;">
+        <a onclick="agregarCarrito('${i}')"><i id="iconoPlus${i}" style="color:black;" class="fas fa-plus-circle fa-3x efect data-toggle="tooltip" data-placement="top" data-html="true" title="Add to shopping cart""></i></a>  
+        <a href="http://"data-toggle="modal" data-target="#modal-comment"><i class="fas fa-comments fa-3x efect comment data-toggle="tooltip" data-placement="top" data-html="true" title="Add coments""></i></a>  
+        <a href="http://"data-toggle="modal" data-target="#modal-qualify"><i class="fas fa-star star fa-3x efect data-toggle="tooltip" data-placement="top" data-html="true" title="Qualify promotion""></i></a>  
+        <a onclick="guardarPromocionFav('${i}')"><i id="iconoHeart${i}" style="color:red;" class="fas fa-heart fa-3x efect data-toggle="tooltip" data-placement="top" data-html="true" title="Add to favorites""></i></a>  
+    </div>
+    <div id="msjAgregar" style="display: none; color:#0e7248; margin:auto; ">Agregando a carrito...</div>
+    <hr>
+    <div class="row" style="margin-left:5px">Puntuaciones</div>
+    <div class="text-center star" id="estrellas"></div><hr>
+    <div class="row" style="margin-left:5px">Comments</div>
+    
+    <div id="areaComents"></div>
+    </div>
+    <hr>
+    `;
+
+    calcEstrellas();
+}

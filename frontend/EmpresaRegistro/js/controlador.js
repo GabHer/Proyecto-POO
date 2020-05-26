@@ -295,6 +295,7 @@ function updateFilenameImg(){
     document.getElementById('urlProfileImage').textContent = nameImg;
 }
 //--Fin
+
 // Funcion para extraer el nombre del banner
 function updateFilenameBanner(){
     path=document.getElementById('urlBanner').value;

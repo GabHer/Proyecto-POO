@@ -161,6 +161,7 @@ class Empresa{
         $result['urlProfileImage']= $this->urlProfileImage;
         $result['urlBanner']= $this->urlBanner;
         $result['sucursales']= [];
+        $result['productos']= [];
         return $result;
     }
 

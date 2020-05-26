@@ -20,13 +20,18 @@
 
 <body style="background-image: url(img/back.png); background-size: cover; background-repeat: no-repeat;">
     <header>
-        <nav>
-            <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 border-bottom shadow-sm"
-                style="background-color: #f9a826;">
-                <img src="img/LogoFind.png" style="width: 150px">
-                <a class="btn btn-outline-primary ml-auto" href="../../backend/class/logoutEmpresa.php">Cerrar sesión</a>
-            </div>
-        </nav>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #f9a826!important;">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <img src="img/LogoFind.png" style="width: 150px">
+    
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <form class="form-inline my-lg-0 ml-auto">
+        <a class="btn btn-outline-primary ml-auto" href="../../backend/class/logoutEmpresa.php">Cerrar sesión</a>
+        </form>
+      </div>
+    </nav>
     </header>
 
     
@@ -39,7 +44,7 @@
                 <input type="text" style="display: none" id="longitude" value="<?php echo $_COOKIE["longitude"] ?>">
             </div>
             <div class="col-lg-4 col-xs-6 col-md-3 col-12" id="logo">
-                <img style="margin-left: 20px;" src="img/iconoEmpresa.png" alt="" srcset="">
+                <img style="margin-left: 50px;" src="img/iconoEmpresa.png" alt="" srcset="">
             </div>
             <div class="col-lg-7 col-xs-6 col-md-3 col-12" style="margin-top: 90px;">
                 <div class="container" style="text-align: center;">
@@ -65,7 +70,7 @@
                     data-html="true" title="<b>Ficha promocional</b>">
                         <span> <i class="fas fa-print fa-3x"></i></span>
                     </button>
-                    <button type="button" href="#" data-toggle="modal" data-target="#eliminarCuenta" class="btn btn-secondary letter" data-toggle="tooltip" data-html="true" data-placement="bottom" title="<b>Eliminar cuenta</b>">
+                    <button type="button" href="#" data-toggle="modal" data-target="#eliminarCuenta" class="btn btn-secondary letter" data-toggle="tooltip" data-html="true" data-placement="bottom" title="Eliminar cuenta">
                             <span><i class="fas fa-trash-alt fa-3x"></i></span>
                     </button>
                     <hr style="background-color: #f9a826;">
@@ -108,7 +113,7 @@
                 <div class="card">
                     <div class="card-header" id="headingTwo">
                         <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                            <button id="tituloComment" class="btn btn-link collapsed" type="button" data-toggle="collapse"
                                 data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                 New comments
                             </button>

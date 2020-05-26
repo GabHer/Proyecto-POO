@@ -1,8 +1,9 @@
 var imgProducto;
 var imgSucursal;
 var imgPromocion;
-var idEmpresa =document.getElementById('id').value;
+var estrellas = '';
 
+var idEmpresa =document.getElementById('id').value;
 axios({
     url:'../../backend/api/empresas.php?idEmpresa='+idEmpresa,
     method: 'GET',
@@ -10,40 +11,57 @@ axios({
 }).then((res)=>{
         document.getElementById('banner').innerHTML= ` <img style="width: 1050px; border: #0E7248 20px solid; height:350px;  margin-left: 50px; " src="${res.data.urlBanner}" alt="" srcset="">`;
         document.getElementById('welcome').innerHTML=`<h1 class="display-4 letter" style="color: #f9a826;">${res.data.nameEnterprise}</h1>`;
-        document.getElementById('logo').innerHTML=`<img class="img-fluid img-thumbnail rounded-circle" style=" margin-top: 30px;  margin-left: 10px; height: 300px; width: 350px;" src="${res.data.urlProfileImage}" alt="" srcset="">`;
+        document.getElementById('logo').innerHTML=`<img class="img-fluid img-thumbnail rounded-circle" style=" margin-top: 30px;  margin-left: 40px; height: 300px; width: 350px;" src="${res.data.urlProfileImage}" alt="" srcset="">`;
         document.getElementById('information').innerHTML= `<h4>   <b>Name:</b> ${res.data.nameEnterprise}; <b>Country:</b> ${res.data.country}; <b>Address:</b>
         ${res.data.addressEnterprise}; <b>Phone:</b> ${res.data.phoneNumberEnterprise}; <b>Email:</b> ${res.data.emailEnterprise}; <b>Foundation:</b> ${res.data.fundationDate}</h4>`;
         document.getElementById('about').innerHTML= res.data.descriptionEnterprise;
 
-        // for(j=0; j<enterprise[i].comments.length; j++){
-        //     // Generar calificación aleatoria:
-        //     let estrellas = '';
-        //     for (let k = 0; k < enterprise[i].comments[j].calificacion; k++) {
-        //         estrellas+='<i class="fas fa-star"></i>';
-        //     }
-        //     for (let k = 0; k < 5-enterprise[i].comments[j].calificacion; k++) {
-        //         estrellas+='<i class="far fa-star"></i>';
-        //     }
-        //     // 
-        //     document.getElementById('comments').innerHTML+=`
-        //     <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12">
-        //     <div class="card mx-1" style="margin-top:10px; width: 310px; border-color:white;">
-        //     <div class="card-body">
-        //     <h5 class="card-title"><img class="rounded-circle img-thumbnail" src="img/usuario.jpg " style="width: 60px; height: 60px;" ><b>   ${enterprise[i].comments[j].nombreusuario}<h6 style="text-align:center;">${estrellas}<h6></b></h5>
-        //     <hr>
-        //     <p class="card-text">Producto: ${enterprise[i].comments[j].producto}<br> ${enterprise[i].comments[j].comment}</p>
-        //     <hr>
-        //     </div>
-        //     </div>
-        //     </div>`}
+        axios({
+            url:'../../backend/api/promociones.php',
+            method: 'GET',
+            dataType: 'json'
+        }).then((res)=>{
+            for(let i in res.data){
+                if(res.data[i].idEnterprise==idEmpresa){
+                    for(let j in res.data[i].comentarios){
+                        axios({
+                            url:'../../backend/api/usuarios.php',
+                            method: 'GET',
+                            dataType: 'json'
+                        }).then((usuario)=>{
+                            for(let k in usuario.data){
+                                
+                                if(k == res.data[i].comentarios[j].idUsuario){
+                                        document.getElementById('comments').innerHTML+=`
+                                        <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12">
+                                        <div class="card mx-1" style="margin-top:10px; width: 310px; border-color:white; font-size:20px">
+                                        <div class="card-body">
+                                        <h5 class="card-title"><img class="rounded-circle img-thumbnail" src="../PerfilUsuario/${usuario.data[k].urlProfileImage}" style="width: 60px; height: 60px;" ><b> ${usuario.data[k].name} ${usuario.data[k].lastName}</b></h5>
+                                        <hr>
+                                        <p class="card-text">Producto: ${res.data[i].products}<br>Comentario: ${res.data[i].comentarios[j].comentario}</p>
+                                        <hr>
+                                        </div>
+                                        </div>
+                                        </div>`
+                                    }
+                        }
+                    
+                    }).catch((error)=>{
+                        console.error(error);
+                    });
+                }
+                
+                }
+            }
+        }
+        ).catch((error)=>{
+            console.error(error);
+        });
+
     }
 ).catch((error)=>{
     console.error(error);
-  });
-  
-
-
-
+});
 
 function registroSucursales(){
     document.getElementById('area').innerHTML= ''
@@ -341,7 +359,6 @@ function verImagen(url){
     document.getElementById("smallImage").innerHTML=`
     <img style="width: 30px; height: 30px; margin-left: 180px;" src="../PerfilEmpresa/${url}">
     `;
-    
 }
 
 function calcPrice(){

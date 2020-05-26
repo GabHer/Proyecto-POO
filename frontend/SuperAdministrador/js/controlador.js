@@ -29,7 +29,7 @@ function verEmpresas() {
   });
 }
 
-  function verUsuarios(){
+function verUsuarios(){
     document.getElementById('area').innerHTML = ''
     axios({
       url:'../../backend/api/usuarios.php',

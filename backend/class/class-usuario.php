@@ -80,10 +80,31 @@ class Usuario{
     }
 
     public function actualizarUsuario($db, $id){
+        $usuario= $db->getReference('users')
+        ->getChild($id)
+        ->getValue();
+        $Usuario['name']= $this->name;
+        $Usuario['lastName']= $this->lastName;
+        $Usuario['birthday']= $this->birthday;
+        $Usuario['gender']= $this->gender;
+        $Usuario['postal']= $this->postal;
+        $Usuario['country']= $this->country;
+        $Usuario['state']= $this->state;
+        $Usuario['address']= $this->address;
+        $Usuario['phone']= $this->phone;
+        $Usuario['email']= $this->email;
+        $Usuario['password']=  sha1($this->password);
+        $Usuario['nameOwner']= $this->nameOwner;
+        $Usuario['creditNumber']= $this->creditNumber;
+        $Usuario['expirationDate']= $this->expirationDate;
+        $Usuario['cvv']= $this->cvv;
+        $Usuario['urlProfileImage']= $this->urlProfileImage;
+        $Usuario['empresasFavoritas']= $usuario['empresasFavoritas'];
+        $Usuario['promocionesFavoritas']= $usuario['promocionesFavoritas'];
+
         $result= $db->getReference('users')
         ->getChild($id)
-        ->set($this->getData());
-
+        ->set($Usuario);
         if($result->getKey()!= null)
             return '{"mensaje": "Registro actualizado","key":"'.$result->getKey().'"}';
         else
@@ -108,6 +129,8 @@ class Usuario{
         $result['expirationDate']= $this->expirationDate;
         $result['cvv']= $this->cvv;
         $result['urlProfileImage']= $this->urlProfileImage;
+        $result['empresasFavoritas']= [];
+        $result['promocionesFavoritas']= [];
         return $result;
     }
 

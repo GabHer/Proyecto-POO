@@ -25,10 +25,11 @@
     
       <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <form class="form-inline my-lg-0 ml-auto">
-          <input type="text" id="inSearch" placeholder="Search">
-          <a type="button" class="btn btn-outline-primary">Search</a>
+          <input type="text" onkeyup="autocompletado()" id="inSearch" placeholder="Search">
+          <!-- <a type="button" class="btn btn-outline-primary">Search</a> -->
           <a type="button" href="../PerfilUsuario/index.php" class="btn btn-outline-primary">Profile</a>
-          <img src="img/carrito-plus.png" style="width: 80px; margin-left: 3px;">
+          <div id="numeroP" style="margin-left: 5px" ><h5 style="color: #0e7248; background-color:#f9a823; padding:5px; ">Productos en el carrito: </h5></div>
+          <img onclick="mostrarPromocionesAgregadas()" data-toggle="modal" data-target="#modal-Carrito" src="img/carrito-plus.png" style="width: 80px; margin-left: 3px; cursor:pointer">
         </form>
       </div>
     </nav>
@@ -50,6 +51,7 @@
           <li onclick="generateProduct('Education')"><span><i class="fas fa-book-open"></i></span><b>Education</b></li>
         </ul>
       </div>
+      
     </div>
 
     <div class="col-xl-10 " style="margin-top: 100px;">
@@ -57,8 +59,8 @@
         <h1 style="color: #0e7248; text-align: center;" id="titulo"><b>Categories</b></h1>
         <hr class="mx-5">
       </div>
+      <ul style="font-size: 25px" id="areaUl"></ul>
       <div class="row" id="area">
-
         <div class="col-xl-3 col-lg-4 col-md-4 col-xs-6 col-12">
           <div class="card-deck" onclick="generateProduct('Fashion')">
             <div class="card mx-1">
@@ -163,13 +165,53 @@
           </div>
           </div>
         </div>
-        
-
-
 
         </div>
       </div>
 
+    <!--ModalCarrito -->
+    <div class="modal" tabindex="-1" role="dialog" id="modal-Carrito">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header" style="background-color: #f9a826;">
+              <div id="tituloCarrito"></div>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div  id="carrito">
+            <section id="contenido-informativo" class="col-md-12 d-sm-block">
+              <table class="table table-striped table-hover table-responsive">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Imagen</th>
+                    <th>Producto</th>
+                    <th>$ Precio + promoción</th>
+                    <th>Quitar</th>
+                  </tr>
+                </thead>
+                <tbody id="tabla-carrito"></tbody>
+              </table>
+            </section>
+            </div>
+            <div class="text-center" id="procesar" style="display: none;"><hr>
+              <div id="msjPagar" ><h6 style="color: #0e7248">Su total a pagar es:</h6></div>
+              <div id="totalPagar" class="ml-auto" type="text" style="  color:#0e7248;"></div><hr>
+              <div id="ahorro" style="color:#0e7248;"></div><br>
+            </div>
+            <div id="loadingCompras" style="display: none; color:#0e7248; margin:auto; "class="spinner-grow" role="status">
+                <span  class="sr-only">Loading...</span>
+            </div><br>
+            <div id="msjCompras" style="display: none; color:#0e7248; margin:auto; ">Aun no hay productos agregados al carrito</div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button onclick="vaciarCarrito()" type="button" class="btn btn-secondary">Vaciar carrito</button>
+              <button onclick="procesarCompra()" type="button" class="btn btn-secondary">Procesar compra</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       
       <!--detalles -->
@@ -184,6 +226,11 @@
             </div>
             <div  id="detalles">
             </div>
+            <div id="loadingComment" style="display: none; color:#0e7248; margin:auto; "class="spinner-grow" role="status">
+                <span  class="sr-only">Loading...</span>
+            </div><br>
+            <div id="msjEstrellas" style="display: none; color:#0e7248; margin:auto; ">Aun no está calificada esta promoción</div>
+            <div id="msjComentarios" style="display: none; color:#0e7248; margin:auto; ">Aun no hay comentarios de esta promoción</div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
@@ -204,22 +251,22 @@
             <div class="modal-body m-auto" >
               <div class="stars" >
                 <form action="">
-                  <input class="star star-5"  id="star-5" type="radio" name="star"/>
+                  <input value="5" class="star star-5"  id="star-5" type="radio" name="star"/>
                   <label class="star star-5" for="star-5"></label>
-                  <input class="star star-4" id="star-4" type="radio" name="star"/>
+                  <input value="4" class="star star-4" id="star-4" type="radio" name="star"/>
                   <label class="star star-4" for="star-4"></label>
-                  <input class="star star-3" id="star-3" type="radio" name="star"/>
+                  <input value="3" class="star star-3" id="star-3" type="radio" name="star"/>
                   <label class="star star-3" for="star-3"></label>
-                  <input class="star star-2" id="star-2" type="radio" name="star"/>
+                  <input value="2" class="star star-2" id="star-2" type="radio" name="star"/>
                   <label class="star star-2" for="star-2"></label>
-                  <input class="star star-1" id="star-1" type="radio" name="star"/>
+                  <input value="1" class="star star-1" id="star-1" type="radio" name="star"/>
                   <label class="star star-1" for="star-1"></label>
                 </form>
               </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Save changes</button>
+              <button type="button" class="btn btn-secondary" onclick="calificarPromocion()" data-dismiss="modal">Save changes</button>
             </div>
           </div>
         </div>
@@ -238,6 +285,9 @@
                 <input class="form-control" id="comment" type="text">
             </div>
             <div class="modal-footer">
+              <div id="loading" style="display: none;"class="spinner-grow" role="status">
+                <span  class="sr-only">Loading...</span>
+              </div><br>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               <button type="button" class="btn btn-secondary" onclick="guardarComentario()">Save changes</button>
             </div>

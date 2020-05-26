@@ -78,6 +78,35 @@
                 echo json_encode($result);
         }
 
+        public function añadirAlCarrito($db, $id){
+                $carrito= $this->getData();
+                $result= $db->getReference("users/".$id."/carrito"."/")
+                    ->push($carrito);
+        
+                if ($result->getKey()!= null)
+                    return '{"mensaje":"Promoción al carrito almacenada","key":"'.$result->getKey().'"}';
+                else
+                    return '{"mensaje":"Promoción al carrito no pudo ser almacenada"}';
+        }
+
+        public static function eliminarPromoCarrito($db, $idUser, $idPromo){
+                $db->getReference("users/".$idUser."/carrito"."/")
+                    ->getChild($idPromo)
+                    ->remove();
+                echo '{"mensaje":"Se eliminó el elemento '.$idPromo.'"}';
+            }
+
+        public static function eliminarTodasPromoCarrito($db, $idUser){
+                $db->getReference("users/".$idUser."/carrito"."/")
+                    ->remove();
+                echo '{"mensaje":"Se eliminó el eliminaron todas las promociones agregadas"}';
+            }
+
+        public static function obtenerPromocionesCarrito($db, $id){
+                $result= $db->getReference("users/".$id."/carrito"."/")
+                ->getValue();
+                echo json_encode($result);
+        }
 
         public function getData(){
             $result['idEnterprise']=$this->idEnterprise;

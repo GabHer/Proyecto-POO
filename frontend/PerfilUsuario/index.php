@@ -20,22 +20,28 @@
 </head>
 <body style="font-family: 'Comic Neue', cursive;background-image: url(img/); background-size: cover; background-repeat: no-repeat;">
     <header>
-      <nav>
-        <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 border-bottom shadow-sm" style="background-color: #f9a826;">
-            <img  src="img/LogoFind.png" style="width: 150px">
-            <a class="btn btn-outline-primary ml-auto" href="../../backend/class/logout.php">Cerrar sesión</a>
-        </div>
-      </nav>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #f9a826!important;">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <img src="img/LogoFind.png" style="width: 150px">
+    
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <form class="form-inline my-lg-0 ml-auto">
+        <a class="btn btn-outline-primary ml-auto" href="../../backend/class/logout.php">Cerrar sesión</a>
+        </form>
+      </div>
+    </nav>
     </header>
     
     <div class="container">
         <div class="row">
-            <div class="col-lg-4 col-xs-6 col-md-3 col-12" style="margin-top: 140px; margin-left: 50px;">
+            <div class="col-lg-4 col-xs-6 col-md-3 col-12" style="margin-top: 110px; margin-left: 50px;">
                 <div id="perfil">
                     <img class="rounded-circle img-thumbnail" src="img/user.jpg"  alt="" srcset="">
                 </div>
             </div>
-            <div class="col-lg-7 col-xs-6 col-md-3 col-12" style="padding-top: 40px; margin-top: 100px; margin-left:35px">
+            <div class="col-lg-7 col-xs-6 col-md-3 col-12" style="padding-top: 40px; margin-top: 80px; margin-left:25px">
                         <div class="container" style="text-align: center;">
                           <div id="user">
                           <h1  class="display-4 letter" style="color: #f9a826;">Welcome user</h1>
