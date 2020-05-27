@@ -80,9 +80,12 @@ input, select{
     margin: 8px!important;
     padding: 5px!important;
     width: 220px;
-
+    border-color:#094b2f;
 }
 
+#idProductQr{
+    border-color: white;
+}
 
 input:focus, select:focus, textarea:focus{
     background-color: white;

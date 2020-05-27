@@ -66,10 +66,10 @@
                     data-html="true" title="<b>Registro promociones</b>">
                         <span> <i class="fas fa-parachute-box fa-3x"></i></span>
                     </button>
-                    <button type="button" onclick="impFichaProm()" class="btn btn-secondary letter" data-toggle="tooltip" data-placement="bottom"
+                    <a type="button" href="ficha.php" class="btn btn-secondary letter" data-toggle="tooltip" data-placement="bottom"
                     data-html="true" title="<b>Ficha promocional</b>">
                         <span> <i class="fas fa-print fa-3x"></i></span>
-                    </button>
+                    </a>
                     <button type="button" href="#" data-toggle="modal" data-target="#eliminarCuenta" class="btn btn-secondary letter" data-toggle="tooltip" data-html="true" data-placement="bottom" title="Eliminar cuenta">
                             <span><i class="fas fa-trash-alt fa-3x"></i></span>
                     </button>

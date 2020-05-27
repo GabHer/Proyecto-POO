@@ -59,7 +59,6 @@
         <h1 style="color: #0e7248; text-align: center;" id="titulo"><b>Categories</b></h1>
         <hr class="mx-5">
       </div>
-      <ul style="font-size: 25px" id="areaUl"></ul>
       <div class="row" id="area">
         <div class="col-xl-3 col-lg-4 col-md-4 col-xs-6 col-12">
           <div class="card-deck" onclick="generateProduct('Fashion')">

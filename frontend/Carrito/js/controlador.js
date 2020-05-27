@@ -14,7 +14,6 @@ axios({
 });
 
 function generateProduct(type){
-    document.getElementById("areaUl").innerHTML = '';
     document.getElementById('area').innerHTML= "";
     document.getElementById('titulo').innerHTML= type;
         axios({
@@ -104,7 +103,6 @@ function calcEstrellas(){
                     contador++;
                     suma += parseInt(promo.puntuacion[k].calificacion);
             }
-            
             // console.log(suma);
             // console.log(contador);
             let total= Math.ceil(suma/contador);
@@ -382,6 +380,7 @@ function vaciarCarrito(){
         console.log(res.data);
         document.getElementById('loadingCompras').style.display='none';
         mostrarPromocionesAgregadas();
+        cantProductosCarrito();
         
     }).catch((error)=>{
         console.error(error);
@@ -391,7 +390,6 @@ function vaciarCarrito(){
 function calificarPromocion(){
     let calificacion= document.querySelector('input[type="radio"][name="star"]:checked')
     console.log((calificacion==null)?'':calificacion.value);
-    console.log(idPromocion);
     let puntuacion={
         calificacion:(calificacion==null)?'':calificacion.value
     }
@@ -404,6 +402,7 @@ function calificarPromocion(){
     }).then((res)=>{
         console.log(res.data);
         generarEstrellas((calificacion==null)?'':calificacion.value);
+        document.getElementById('msjEstrellas').style.display= 'none';
         
     }).catch((error)=>{
         console.error(error);
@@ -445,7 +444,6 @@ jQuery('document').ready(function($){
 // Termina código
 
 function autocompletado() {
-    document.getElementById("areaUl").innerHTML = '';
     document.getElementById("area").innerHTML = '';
     var promo=[];
     for (let i in promociones){
@@ -493,6 +491,7 @@ function autocompletado() {
 
 function detallesSearch(i){
     idPromocion = i;
+    document.getElementById('msjEstrellas').style.display= 'none';
     document.getElementById('msjComentarios').style.display='none';
     actualizarComentarios();
     $("#modal-detalles").modal("show");
