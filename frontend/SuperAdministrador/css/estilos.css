@@ -52,11 +52,15 @@ header{
     cursor: pointer;
 }
 
-input:focus{
+input:focus { 
     border-color: #0b633e!important;
     box-shadow: 0 0 0 0.2rem #0f774c!important;
 }
 
+textarea:focus{
+    border-color: #0b633e!important;
+    box-shadow: 0 0 0 0.2rem #0f774c!important;
+}
 .card{
     border-radius: 15px!important;
 }

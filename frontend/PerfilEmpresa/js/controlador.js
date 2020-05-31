@@ -2,8 +2,9 @@ var imgProducto;
 var imgSucursal;
 var imgPromocion;
 var estrellas = '';
-
 var idEmpresa =document.getElementById('id').value;
+
+/* Petición que carga los datos del usuario correspondiente */
 axios({
     url:'../../backend/api/empresas.php?idEmpresa='+idEmpresa,
     method: 'GET',
@@ -63,6 +64,7 @@ axios({
     console.error(error);
 });
 
+/* Función para generar el formulario de registro de sucursales*/
 function registroSucursales(){
     document.getElementById('area').innerHTML= ''
     document.getElementById('area').innerHTML= `
@@ -103,6 +105,7 @@ function registroSucursales(){
     `
 }
 
+/*Función para guardar sucursal */
 function agregarSucursales(){
     $("#loading").show();
     list=[
@@ -152,11 +155,13 @@ function agregarSucursales(){
                 console.error(error);
             });
         }else{
+            $("#loading").hide();
             document.getElementById('msjErrorSucursal').style.display = 'block';
         }
 
 }
 
+/*Función para generar formulario de registro de productos*/
 function registroProductos(){
     document.getElementById('area').innerHTML= ''
     document.getElementById('area').innerHTML= `
@@ -192,6 +197,7 @@ function registroProductos(){
     `
 }
 
+/*Función para guardar productos*/
 function guardarProductos(){
     $("#loading").show();
     list=[
@@ -234,10 +240,11 @@ function guardarProductos(){
         }else{
             document.getElementById('msjErrorProducto').style.display = 'block';
             $("#loading").hide();
-                document.getElementById('msjActualizadoProducto').style.display = 'none';
+            document.getElementById('msjActualizadoProducto').style.display = 'none';
         }
 }
 
+/* Función para generar formulario de registrar promociones */
 function registroPromociones(){
     document.getElementById('area').innerHTML= '';
     axios({
@@ -338,6 +345,7 @@ function registroPromociones(){
         </div>   `
 }
 
+/*Función que completa la información del producto seleccionado en promociones*/
 var resImg;
 function complete(){
     axios({
@@ -355,17 +363,20 @@ function complete(){
     });
 }
 
+/*Función para visualizar la imagen del producto*/
 function verImagen(url){
     document.getElementById("smallImage").innerHTML=`
     <img style="width: 30px; height: 30px; margin-left: 180px;" src="../PerfilEmpresa/${url}">
     `;
 }
 
+/*Función que calcula el precio de la promoción al seleccionar un porcentaje de descuento*/
 function calcPrice(){
     let calc = parseFloat(document.getElementById('priceProduct').value) - (((parseFloat(document.getElementById('Discount').value))/100) * (document.getElementById('priceProduct').value));
     document.getElementById('discountPromo').value= calc;
 }
 
+/*Función para guardar las promociones*/
 function guardarPromociones(){
     var promocion;
     $("#loading").show();
@@ -450,6 +461,7 @@ function guardarPromociones(){
     
 }
 
+/*Funciones que generan las gráficas de ventas por día y seguidores por mes */
     var ctx = document.getElementById('graph1');
     var myChart = new Chart(ctx, {
         type: 'bar',
@@ -500,10 +512,7 @@ var myChart = new Chart(ctx, {
     }
 });
 
-
-
-
-
+/*Función para eliminar cuenta de empresa*/
 function eliminarEmpresa(){
     document.getElementById('loadingEliminar').style.display='inline';
     axios({

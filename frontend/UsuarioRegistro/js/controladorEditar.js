@@ -1,6 +1,7 @@
 var nameImg;
 var profile;
 var id= document.getElementById('id').value;
+/*Petición para editar la cuenta de usuario*/
     axios({
         url:'../../backend/api/usuarios.php?idUsuario='+id,
         method: 'GET',
@@ -30,7 +31,7 @@ var id= document.getElementById('id').value;
         console.error(error);
     });
 
-
+/*Función para actualizar la cuenta del usuario */
 function actualizar(){
     $("#loading").show();
     let img;

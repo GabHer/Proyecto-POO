@@ -38,6 +38,10 @@
                         data-html="true" title="<b>Edit profile</b>">
                         <span> <i class="far fa-address-card fa-3x"></i></span>
                     </button>
+                    <button type="button" onclick="addPlan()" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom"
+                        data-html="true" title="<b>Agregar Plan</b>">
+                        <span> <i class="fas fa-file-invoice-dollar fa-3x"></i></span>
+                    </button>
                     <button type="button" onclick="verUsuarios();" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom"
                         data-html="true" title="<b>Registered users</b>">
                         <span> <i class="fas fa-users fa-3x"></i></span>
@@ -52,13 +56,13 @@
             </div>
         </div>
 
-        <div class="row" style="margin-top: 100px; margin-left: 20px;" id="area">
-            <div class="accordion" id="accordionExample">
+        <div class="row" style="margin-top: 100px;" id="area" style="font-family: 'Comic Neue', cursive;">
+            <div class="accordion" id="accordionExample" >
                 <div class="card">
                     <div class="card-header" style="background-color: #f9a826;" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
-                                aria-expanded="true" aria-controls="collapseOne">
+                                aria-expanded="true" aria-controls="collapseOne" style="font-family: 'Comic Neue', cursive;">
                                 Information
                             </button>
                         </h2>

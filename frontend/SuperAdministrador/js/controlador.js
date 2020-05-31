@@ -1,3 +1,4 @@
+/*Función para ver todas las empresas registradas */
 function verEmpresas() {
   document.getElementById('area').innerHTML = '';
   axios({
@@ -29,6 +30,7 @@ function verEmpresas() {
   });
 }
 
+/*Función para ver todos los usuarios registrados */
 function verUsuarios(){
     document.getElementById('area').innerHTML = ''
     axios({
@@ -63,6 +65,7 @@ function verUsuarios(){
 });
 }
 
+/*Función  para generar formulario para editar contraseña*/
 function edit(){
   document.getElementById('area').innerHTML = '';
   document.getElementById('area').innerHTML = `
@@ -77,12 +80,12 @@ function edit(){
   `
 }
 
+/*Función para actualizar contraseña*/
 function actualizar(){
   let password={
     email:"superAdmin@find.com",
     password:document.getElementById('passwordSuperAdmin').value
   }
-
   axios({
     url:'../../backend/api/superAdmin.php?idSuperAdmin='+document.getElementById('id').value,
     method: 'put',
@@ -95,6 +98,47 @@ function actualizar(){
   }).catch((error)=>{
     console.error(error);
   });
+}
+
+/*Función  para generar formulario de agregar plan*/
+function addPlan(){
+  document.getElementById('area').innerHTML = '';
+  document.getElementById('area').innerHTML = `
+  <div class="card " style="width: auto; margin: auto auto">
+  <div class="card-body tex-center">
+    <h6 style="color: #0e7248">Cree el nuevo plan</h6><br>
+    <input class="form-control" id="costo" type="text" placeholder="$ Costo" ><br>
+    <input class="form-control" id="duracion" type="text" placeholder="Duración" ><br>
+    <textarea name="descripcion" id="descripcion" cols="40" rows="10" style="padding:10px" placeholder="Description"></textarea><br>
+    <button style="width: auto; margin: 20px" type="button" onclick="agregarPlan();" class="btn btn-secondary float-right">Agregar Plan</button>
+    <div class="text-center" id="msjAgregado" style="display: none; color: green;">Agregado con exito <i class="fas fa-check-circle"></i></div>
+  </div>
+</div>
+  `
+}
+
+/*Función para agregar plan */
+function agregarPlan(){
+  let plan={
+    costo:document.getElementById('costo').value,
+    duracion:document.getElementById('duracion').value,
+    descripcion:document.getElementById('descripcion').value
+  }
+
+  axios({
+    url: '../../backend/api/planes.php',
+    method: 'post',
+    dataType: 'json',
+    data:plan
+    }).then(res=>{
+        console.log(res.data);
+        document.getElementById('msjAgregado').style.display= 'inline';
+        document.getElementById('costo').value="";
+        document.getElementById('duracion').value="";
+        document.getElementById('descripcion').value="";
+    }).catch(error=>{
+        console.error(error);
+    });
 }
 
 $(function () {

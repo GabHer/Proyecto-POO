@@ -1,5 +1,6 @@
 var nameImg;
 
+/*Función para registrar un usuario */
 function registrarUsuario(){
     $("#loading").show();
     list=[
@@ -40,9 +41,6 @@ function registrarUsuario(){
         urlProfileImage: `img/${nameImg}`
     }
     
-    
-    enviarEmail(document.getElementById('email').value, document.getElementById('name').value);
-
     var contador=0;
     for(let i=0; i<list.length; i++){
         if(list[i]==true){
@@ -57,6 +55,7 @@ function registrarUsuario(){
                 dataType:'json'
             }).then((res)=>{
                 console.log(res);
+                enviarEmail(document.getElementById('email').value, document.getElementById('name').value);
                 document.getElementById('key').value= res.data.key;
                 window.location.href="../PerfilUsuario/index.php";
         
@@ -66,10 +65,13 @@ function registrarUsuario(){
             });
         }else{
             document.getElementById('msjError').style.display = 'block';
+            $("#loading").hide();
+
         }
     
 }
 
+/*Función para enviar correo y dar de alta la cuenta del usuario */
 function enviarEmail(email, name){
     let params={
             email: email,

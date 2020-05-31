@@ -37,8 +37,8 @@
 
 
   <div class="row" >
+    <input style="display:none" id="idUsuario" type="text" value="<?php echo $_COOKIE["id"] ?>">
     <div class="col-xl-2 col-lg-1 col-12" >
-      <input id="idUsuario" type="text" value="<?php echo $_COOKIE["id"] ?>">
       <div id="categorias">
         <ul>
           <li onclick="generateProduct('Technology')"><span><i class="fas fa-laptop"></i></span><b>Technology</b></li>

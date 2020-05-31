@@ -37,7 +37,7 @@
     
     <div class="container">
         <div class="row">
-            <div class="row container-fluid" id="banner" style="margin-top: 90px;">
+            <div class="row container-fluid" id="banner" style="margin-top: 70px;">
                 <img style="width: 1050px; border: #0E7248 20px solid;  margin-left: 50px; " src="img/banner.jpg" alt="" srcset="">
                 <input type="text" style="display: none" id="id" value="<?php echo $_COOKIE["id"] ?>">
                 <input type="text" style="display: none" id="latitute" value="<?php echo $_COOKIE["latitute"] ?>">

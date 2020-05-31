@@ -1,4 +1,5 @@
-var id = document.getElementById('id').value
+var id = document.getElementById('id').value;
+/*Petición para generar los datos correspondientes del usuario */
 axios({
   url:'../../backend/api/usuarios.php?idUsuario='+id,
   method: 'GET',
@@ -11,8 +12,9 @@ axios({
   console.error(error);
 });
 
+/*Función que genera todos los perfiles de empresas registradas*/
 function verPerfilesEmpresas() {
-  document.getElementById('area').innerHTML = ''
+  document.getElementById('area').innerHTML = '';
   axios({
     url:'../../backend/api/empresas.php',
     method: 'GET',
@@ -50,6 +52,7 @@ function verPerfilesEmpresas() {
   });
 }
 
+/*Función para agregar empresas a favoritas*/
 function agregarEmpresaFav(idEmpresa){
   var empresa;
   document.getElementById(`loadingFav${idEmpresa}`).style.display ='inline';
@@ -101,7 +104,7 @@ function agregarEmpresaFav(idEmpresa){
 
 }
 
-
+/*Función generar el area de favoritos*/
 function favEmpresasPromo() {
   document.getElementById('area').innerHTML = '';
   document.getElementById('area').innerHTML = `
@@ -121,6 +124,7 @@ function favEmpresasPromo() {
   `;
 }
 
+/*Función para generar las empresas favoritas del usuario*/
 function favEmpresas() {
   document.getElementById('area2').innerHTML = "";
   document.getElementById('loadingArea2').style.display= 'inline';
@@ -155,6 +159,7 @@ function favEmpresas() {
   });
 }
 
+/*Función para generar las promociones favoritas del usuario*/
 function favPromo() {
   document.getElementById('area2').innerHTML = "";
   document.getElementById('loadingArea2').style.display= 'inline';
@@ -202,7 +207,7 @@ function favPromo() {
   });
 }
 
-
+/*Función que genera el mapa de promociones*/
 function promEnGoogle() {
   document.getElementById('area').innerHTML = '';
   document.getElementById('area').innerHTML = `<div id="map" class="map">Encuentra las promociones más cerca de ti en GoogleMaps</div>`;
@@ -221,6 +226,7 @@ function promEnGoogle() {
 
 }
 
+/*Función que genera los productos para visualizar por empresa*/
 function productsEnterprise(indiceEnterprise){
   document.getElementById('modal-p').innerHTML="";
   document.getElementById('titulo').innerHTML= "";
@@ -230,7 +236,7 @@ function productsEnterprise(indiceEnterprise){
     method: 'GET',
     dataType: 'json'
   }).then((res)=>{
-  document.getElementById('titulo').innerHTML= res.data.nameEnterprise;
+    document.getElementById('titulo').innerHTML= res.data.nameEnterprise;
   }).catch((error)=>{
     console.error(error);
   });
@@ -260,7 +266,7 @@ function productsEnterprise(indiceEnterprise){
   });
 }
 
-
+/*Función para la opción de eliminar cuenta del usuario */
 function eliminarUsuario(){
   document.getElementById('loadingEliminar').style.display='inline';
   axios({

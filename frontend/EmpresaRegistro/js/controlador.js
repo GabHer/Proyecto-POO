@@ -1,6 +1,7 @@
 var nameImg;
 var banner;
 
+/* Función para registrar empresa*/
 function registrarEnterprise(){
     $("#loading").show();
     document.getElementById('msjError').style.display = 'none';
@@ -67,69 +68,7 @@ function registrarEnterprise(){
     
 }
 
-function editar(id){
-    axios({
-        url:'../../backend/api/empresas.php?idEmpresa='+id,
-        method: 'GET',
-        dataType: 'json'
-    }).then((res)=>{
-        console.log(res);
-        document.getElementById('nameEnterprise').value= res.data.nameEnterprise;
-        document.getElementById('descriptionEnterprise').value= res.data.descriptionEnterprise;
-        document.getElementById('fundationDate').value= res.data.fundationDate;
-        document.getElementById('emailEnterprise').value= res.data.emailEnterprise;
-        document.getElementById('passwordEnterprise').value= res.data.passwordEnterprise;
-        document.getElementById('postalCode').value= res.data.postalCode;
-        document.getElementById('country').value= res.data.country;
-        document.getElementById('state').value= res.data.state;
-        document.getElementById('addressEnterprise').value= res.data.addressEnterprise;
-        document.getElementById('phoneNumberEnterprise').value= res.data.phoneNumberEnterprise;
-        document.getElementById('latitute').value= res.data.latitute;
-        document.getElementById('longitude').value= res.data.longitude;
-        document.getElementById('key').value = id;
-        $("#btn-register").hide();
-        $("#btn-actualizar").show();
-
-    }).catch((error)=>{
-        console.error(error);
-    })
-    ;
-}
-
-function actualizar(){
-    $("#loading").show();
-    let empresa={
-        nameEnterprise:document.getElementById('nameEnterprise').value,
-        descriptionEnterprise:document.getElementById('descriptionEnterprise').value,
-        fundationDate:document.getElementById('fundationDate').value,
-        emailEnterprise:document.getElementById('emailEnterprise').value,
-        passwordEnterprise:document.getElementById('passwordEnterprise').value,
-        postalCode:document.getElementById('postalCode').value,
-        country:document.getElementById('country').value,
-        state:document.getElementById('state').value,
-        addressEnterprise:document.getElementById('addressEnterprise').value,
-        phoneNumberEnterprise:document.getElementById('phoneNumberEnterprise').value,
-        latitute:document.getElementById('latitute').value,
-        longitude:document.getElementById('longitude').value,
-        urlProfileImage:`img/${nameImg}`,
-        urlBanner: `img/${banner}`
-    }
-
-    axios({
-        url:'../../backend/api/empresas.php?idEmpresa='+document.getElementById('key').value,
-        method:'put',
-        data: empresa,
-        dataType:'json'
-    }).then((res)=>{
-        console.log(res);
-        $("#loading").hide();
-        $("#msjActualizado").show();
-    }).catch((error)=>{
-        console.error(error);
-    });
-}
-
-
+/* Función que envia el email para dar de alta la cuenta al registrarse*/
 function enviarEmail(email, name){
     let params={
             email: email,

@@ -13,6 +13,7 @@ axios({
         console.error(error);
 });
 
+/* Generando promociones en su respectiva categoría */
 function generateProduct(type){
     document.getElementById('area').innerHTML= "";
     document.getElementById('titulo').innerHTML= type;
@@ -57,7 +58,7 @@ function generateProduct(type){
     });
 }
 
-
+/* Detalle de cada promoción */
 function detalles(i){
     idPromocion = i;
     document.getElementById('msjEstrellas').style.display= 'none';
@@ -90,6 +91,7 @@ function detalles(i){
     calcEstrellas();
 }
 
+/* Función que calcula en promedio las estrellas dependiendo de las puntuaciones almacenadas */
 function calcEstrellas(){
     axios({
         url:'../../backend/api/promociones.php?idPromocion='+idPromocion,
@@ -106,8 +108,8 @@ function calcEstrellas(){
             // console.log(suma);
             // console.log(contador);
             let total= Math.ceil(suma/contador);
-            // console.log(total);
             generarEstrellas(total);
+            // console.log(total);
 
             if(suma==0){
                 document.getElementById('msjEstrellas').style.display= 'inline';
@@ -115,10 +117,10 @@ function calcEstrellas(){
     }).catch((error)=>{
             console.error(error);
     });
-
     
 }
 
+/* Función que guarda las promociones marcadas como favoritas */
 function guardarPromocionFav(idPromocion){
     var promocion;
     axios({
@@ -155,6 +157,7 @@ function guardarPromocionFav(idPromocion){
         });
 }
 
+/* Función que guarda el comentario realizado por el usuario en la promoción respectiva*/
 function guardarComentario(){
     document.getElementById('loading').style.display='inline';
     console.log(idPromocion);
@@ -182,6 +185,7 @@ function guardarComentario(){
     });
 }
 
+/* Función para visualizar los comentarios en el detalle de la promoción */
 function actualizarComentarios(){
     document.getElementById('loadingComment').style.display='inline';
     document.getElementById('msjComentarios').style.display='none';
@@ -226,6 +230,7 @@ function actualizarComentarios(){
         });
 }
 
+/* Función para agregar promoción al carrito de compra */
 function agregarCarrito(idPromocion){
     document.getElementById('msjAgregar').style.display='inline';
     axios({
@@ -264,6 +269,7 @@ function agregarCarrito(idPromocion){
         });
 }
 
+/* Función para visualizar las promociones agregadas al carrito */
 var name;
 function mostrarPromocionesAgregadas(){
     document.getElementById('tabla-carrito').innerHTML="";
@@ -313,6 +319,7 @@ function mostrarPromocionesAgregadas(){
 
 }
 
+/* Función para calcular la cantidad de promociones al carrito y visualizarlas en la navbar*/
 function cantProductosCarrito(){
     axios({
         url:'../../backend/api/carrito.php?idUsuario=' + document.getElementById('idUsuario').value,
@@ -329,6 +336,7 @@ function cantProductosCarrito(){
     });
 }
 
+/* Función para calcular el total de las promociones en el carrito*/
 function procesarCompra(){
     document.getElementById('loadingCompras').style.display='inline';
     axios({
@@ -355,6 +363,7 @@ function procesarCompra(){
     });
 }
 
+/* Función para eliminar una promoción en el carrito */
 function eliminar(id){
     $("#"+id).remove();
     axios({
@@ -370,6 +379,7 @@ function eliminar(id){
     });
 }
 
+/* Función para vaciar carrito*/
 function vaciarCarrito(){
     document.getElementById('loadingCompras').style.display='inline';
     axios({
@@ -387,6 +397,7 @@ function vaciarCarrito(){
     });
 }
 
+/* Función para agregar calificación de estrellas en la respectiva promoción */
 function calificarPromocion(){
     let calificacion= document.querySelector('input[type="radio"][name="star"]:checked')
     console.log((calificacion==null)?'':calificacion.value);
@@ -409,6 +420,7 @@ function calificarPromocion(){
     });
 }
 
+/* Función para visualizar las estrellas en el detalle de la promición*/
 function generarEstrellas(cant){
     let estrellas = '';
             for (let k = 0; k < cant; k++) {
@@ -443,6 +455,8 @@ jQuery('document').ready(function($){
 });
 // Termina código
 
+
+/* Función para buscar una promoción en el carrito*/
 function autocompletado() {
     document.getElementById("area").innerHTML = '';
     var promo=[];
