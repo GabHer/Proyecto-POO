@@ -98,9 +98,15 @@
         <div class="advice2">Latitude and longitude</div>
         <input type="text" name="latitute" onkeyup="validarLatitud(this)" id="latitute" placeholder="[±0-90.000]">
         <input type="text" name="longitude" onkeyup="validarLongitud(this)" id="longitude" placeholder="[±0-180.000]">
-        <input type="file" onchange="subirImagen()" style="margin-top: 15px;" name="urlProfileImage" id="urlProfileImage"></br>
+        <div style="margin-top: 20px;" class="custom-file">
+          <input type="file" class="custom-file-input" onchange="subirImagen()" name="urlProfileImage" id="urlProfileImage" required>
+          <label class="custom-file-label" for="customFile" id="file-label1"></label>
+        </div>
         <div class="advice" >Upload a profile picture</div></br>
-        <input type="file" onchange="subirBanner()" name="urlBanner" id="urlBanner"></br>
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" onchange="subirBanner()" name="urlBanner" id="urlBanner" required>
+          <label class="custom-file-label" for="customFile" id="file-label2"></label>
+        </div>
         <div class="advice">Upload a banner</div></br>
         <button type="button" onclick="actualizar();" id="btn-actualizar" class="btn-save-changes">Actualizar</button><br>
         <div id="loading" style="display: none;"class="spinner-grow" role="status">

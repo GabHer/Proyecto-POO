@@ -232,6 +232,7 @@ function updateFilenameImg(){
     if (path.substr(0, 12) == "C:\\fakepath\\")
         nameImg = path.substr(12); // modern browser
     document.getElementById('urlProfileImage').textContent = nameImg;
+    document.getElementById('file-label1').innerHTML = nameImg;
 }
 //--Fin
 
@@ -241,6 +242,7 @@ function updateFilenameBanner(){
     if (path.substr(0, 12) == "C:\\fakepath\\")
         banner = path.substr(12); // modern browser
     document.getElementById('urlBanner').textContent = banner;
+    document.getElementById('file-label2').innerHTML = banner;
 }
 //--Fin
 

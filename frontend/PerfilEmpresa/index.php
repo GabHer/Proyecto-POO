@@ -17,8 +17,7 @@
     <title>Profile Enterprise</title>
 
 </head>
-
-<body style="background-image: url(img/back.png); background-size: cover; background-repeat: no-repeat;">
+<body >
     <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #f9a826!important;">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,57 +27,60 @@
     
       <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <form class="form-inline my-lg-0 ml-auto">
-        <a class="btn btn-outline-primary ml-auto" href="../../backend/class/logoutEmpresa.php">Cerrar sesión</a>
+            <a class="btn btn-outline-primary " style="margin-right: 5px;" href="index.php">Principal perfil</a>
+            <a class="btn btn-outline-primary ml-auto" href="../../backend/class/logoutEmpresa.php">Cerrar sesión</a>
         </form>
       </div>
     </nav>
     </header>
 
     
-    <div class="container">
-        <div class="row">
-            <div class="row container-fluid" id="banner" style="margin-top: 70px;">
-                <img style="width: 1050px; border: #0E7248 20px solid;  margin-left: 50px; " src="img/banner.jpg" alt="" srcset="">
-                <input type="text" style="display: none" id="id" value="<?php echo $_COOKIE["id"] ?>">
-                <input type="text" style="display: none" id="latitute" value="<?php echo $_COOKIE["latitute"] ?>">
-                <input type="text" style="display: none" id="longitude" value="<?php echo $_COOKIE["longitude"] ?>">
+    <div class="container-fluid">
+        <div class="row ">
+            <div class="col-xl-2" style="background-color:rgba(128, 128, 128, 0.363);">
+            <div class="col-lg-4 col-xs-6 col-md-3 col-12 " id="logo">
+                <img style="margin-top:180px" src="" alt="" srcset="">
             </div>
-            <div class="col-lg-4 col-xs-6 col-md-3 col-12" id="logo">
-                <img style="margin-left: 50px;" src="img/iconoEmpresa.png" alt="" srcset="">
-            </div>
-            <div class="col-lg-7 col-xs-6 col-md-3 col-12" style="margin-top: 90px;">
-                <div class="container" style="text-align: center;">
-                    <div id="welcome"><h1 class="display-4 letter" style="color: #f9a826;">Welcome Enterprise</h1></div>
+            <div class="col-lg-7 col-xs-6 col-md-3 col-12 center-block" style="margin-top: 90px;">
+                <div style="text-align: center;">
+                    <div id="welcome"><h1 class="display-4 letter" style="color: #f9a826;"></h1></div>
                     <hr style="background-color: #f9a826;">
-                    <a href="../EmpresaRegistro/index.php" type="button" class="btn btn-secondary letter" data-toggle="tooltip" data-placement="bottom"
+                    <a style="margin:5px" href="../EmpresaRegistro/index.php" type="button" class="btn btn-secondary letter" data-toggle="tooltip" data-placement="bottom"
                     data-html="true" title="<b>Editar perfil</b>">
                         <span> <i class="far fa-address-card fa-3x"></i></span>
                     </a>
-                    <button onclick="registroSucursales()" type="button" class="btn btn-secondary letter" data-toggle="tooltip" data-placement="bottom"
+                    <button style="margin:5px" onclick="registroSucursales()" type="button" class="btn btn-secondary letter" data-toggle="tooltip" data-placement="bottom"
                     data-html="true" title="<b>Registro sucursales</b>">
                         <span> <i class="fas fa-store fa-3x"></i></span>
                     </button>
-                    <button onclick="registroProductos()" type="button" class="btn btn-secondary letter" data-toggle="tooltip" data-placement="bottom"
+                    <button style="margin:5px" onclick="registroProductos()" type="button" class="btn btn-secondary letter" data-toggle="tooltip" data-placement="bottom"
                     data-html="true" title="<b>Registro productos</b>">
                         <span><i class="fas fa-cart-arrow-down fa-3x"></i></span>
                     </button>
-                    <button onclick="registroPromociones()" type="button" class="btn btn-secondary letter" data-toggle="tooltip" data-placement="bottom"
+                    <button style="margin:5px" onclick="registroPromociones()" type="button" class="btn btn-secondary letter" data-toggle="tooltip" data-placement="bottom"
                     data-html="true" title="<b>Registro promociones</b>">
                         <span> <i class="fas fa-parachute-box fa-3x"></i></span>
                     </button>
-                    <a type="button" href="ficha.php" class="btn btn-secondary letter" data-toggle="tooltip" data-placement="bottom"
+                    <a style="margin:5px" type="button" href="ficha.php" class="btn btn-secondary letter" data-toggle="tooltip" data-placement="bottom"
                     data-html="true" title="<b>Ficha promocional</b>">
                         <span> <i class="fas fa-print fa-3x"></i></span>
                     </a>
-                    <button type="button" href="#" data-toggle="modal" data-target="#eliminarCuenta" class="btn btn-secondary letter" data-toggle="tooltip" data-html="true" data-placement="bottom" title="Eliminar cuenta">
+                    <button style="margin:5px" type="button" href="#" data-toggle="modal" data-target="#eliminarCuenta" class="btn btn-secondary letter" data-toggle="tooltip" data-html="true" data-placement="bottom" title="Eliminar cuenta">
                             <span><i class="fas fa-trash-alt fa-3x"></i></span>
                     </button>
                     <hr style="background-color: #f9a826;">
                 </div>
             </div>
         </div>
-        <div class="container-fluid row" style="margin-left: 2px; margin-top:35px" id="area">
-            <div class="accordion" id="accordionExample" style="font-family: 'Comic Neue', cursive;">
+        <div class="col-xl-10">
+        <div class="container-fluid" style="margin-top:100px" id="area">
+            <div class="row" style="margin-left: 80px" id="banner">
+                <img style="width: 1050px; border: #0E7248 20px solid;  margin-left: 100px; " src="img/banner.jpg" alt="" srcset="">
+                <input type="text" style="display: none" id="id" value="<?php echo $_COOKIE["id"] ?>">
+                <input type="text" style="display: none" id="latitute" value="<?php echo $_COOKIE["latitute"] ?>">
+                <input type="text" style="display: none" id="longitude" value="<?php echo $_COOKIE["longitude"] ?>">
+            </div>
+            <div style="margin: 30px 0px 0px 10px;" class="accordion" id="accordionExample" style="font-family: 'Comic Neue', cursive;">
                 <div class="card">
                     <div class="card-header" style="background-color: #f9a826;" id="headingOne">
                         <h2 class="mb-0">
@@ -92,7 +94,7 @@
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
                         data-parent="#accordionExample">
                         <div class="card-body" >
-                            <div class="row" id="information">
+                            <div class="row" id="information" style="font-family: 'Comic Neue', cursive;">
                                 <p>Name: EnterpriseName; Country: Honduras; Address:
                                     Distrito Central; Phone: 22012983; Email: enterprise@gmail.hn; Foundation: 00/00/2020</p>
                             </div>
@@ -120,7 +122,7 @@
                         </h2>
                     </div>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                        <div class="row" id="comments">
+                        <div class="row" id="comments" style="font-family: 'Comic Neue', cursive;">
                         </div>
                     </div>
                 </div>
@@ -167,23 +169,6 @@
                         <h2 class="mb-0">
                             <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
                                 data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                About you
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-                        data-parent="#accordionExample">
-                        <div class="card-body"><h4 id="about">
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque ducimus laborum suscipit in recusandae modi earum repudiandae, unde aspernatur et. Ullam consequatur odio excepturi facere iure cum assumenda temporibus eveniet.</h4>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header" id="headingThree">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                                data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                 Location
                             </button>
                         </h2>
@@ -215,7 +200,27 @@
                             </script>
                     </div>
                 </div>
+
+                <div class="card">
+                    <div class="card-header" id="headingThree" style="font-family: 'Comic Neue', cursive;">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                About you
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                        data-parent="#accordionExample">
+                        <div class="card-body"><h4 id="about">
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque ducimus laborum suscipit in recusandae modi earum repudiandae, unde aspernatur et. Ullam consequatur odio excepturi facere iure cum assumenda temporibus eveniet.</h4>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+        </div>
+        </div>
         </div>
 
     </div>
@@ -262,5 +267,4 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/controlador.js"></script>
 </body>
-
 </html>

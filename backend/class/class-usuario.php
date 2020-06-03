@@ -101,6 +101,7 @@ class Usuario{
         $Usuario['urlProfileImage']= $this->urlProfileImage;
         $Usuario['empresasFavoritas']= $usuario['empresasFavoritas'];
         $Usuario['promocionesFavoritas']= $usuario['promocionesFavoritas'];
+        $Usuario['carrito']= $usuario['carrito'];
 
         $result= $db->getReference('users')
         ->getChild($id)
@@ -131,6 +132,7 @@ class Usuario{
         $result['urlProfileImage']= $this->urlProfileImage;
         $result['empresasFavoritas']= [];
         $result['promocionesFavoritas']= [];
+        $result['carrito']= [];
         return $result;
     }
 

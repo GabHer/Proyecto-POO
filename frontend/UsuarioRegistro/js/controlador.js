@@ -235,6 +235,7 @@ function updateFilename(){
     document.getElementById('urlProfileImage').textContent = nameImg;
     verImagen(nameImg);
     console.log(nameImg);
+    document.getElementById('file-label').innerHTML = nameImg;
 }
 //--Fin
 

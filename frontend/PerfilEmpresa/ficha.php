@@ -15,15 +15,22 @@
     <title></title>
 </head>
 <body>
-    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 border-bottom shadow-sm"
-        style="background-color: #f9a826;">
-        <img src="img/LogoFind.png" style="width: 140px">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #f9a826!important;">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <img src="img/LogoFind.png" style="width: 150px">
+    
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <form class="form-inline my-lg-0 ml-auto">
         <a class="btn btn-outline-primary ml-auto" href="../PerfilEmpresa/index.php"><i class="fas fa-arrow-circle-left fa-3x"></i></a>
         <a type="button" style="color: white;" onclick="imprimir();" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Print product">
-            <span> <i class="fas fa-print fa-3x"></i></span></a>  
-    </div>
+            <span> <i class="fas fa-print fa-3x"></i></span></a> 
+        </form>
+      </div>
+    </nav>
 
-    <div class="container" style="font-family: 'Comic Neue', cursive;">
+    <div class="container jumbotron shadow" style="font-family: 'Comic Neue', cursive;">
     <input type="text" style="display: none" id="id" value="<?php echo $_COOKIE["id"] ?>">
         <div style= "text-align:center; font-family: 'Comic Neue', cursive;" class="m-auto">
             <h3 id="msj" style="color: #0e7248"><b>Seleccione un producto para generar la ficha</b></h3>

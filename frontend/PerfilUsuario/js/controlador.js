@@ -36,7 +36,7 @@ function verPerfilesEmpresas() {
       <div class="text-center" id="loadingFav${llave}" style="display: none; color:#0b633e;">
           <span >Loading...</span>
       </div><br>
-      <div id="msjIcon${llave}" class="text-center" style="display:none; color:#0b633e;"><b>¡Agregada a favoritas!</b><div>
+      <div id="msjIcon${llave}" class="text-center" style="display:none; color:#0b633e; margin-left: 25px"><b>¡Agregada a favoritas!</b><div>
       </div>
       </div>
     </div>
@@ -118,6 +118,8 @@ function favEmpresasPromo() {
     </div><br>
     </div>
     </div>
+    <div id="msjPromo" style="display:none; color:#0e7248;"><i class="fas fa-exclamation-circle"></i> No hay promociones agregadas a favoritos.</div>
+    <div id="msjEmpresas" style="display:none; color:#0e7248;"><i class="fas fa-exclamation-circle"></i> No hay empresas agregadas a favoritas.</div>
     <div class="row" style="margin-top: 60px;" id="area2">
   </div>
   </div>
@@ -125,17 +127,22 @@ function favEmpresasPromo() {
 }
 
 /*Función para generar las empresas favoritas del usuario*/
-function favEmpresas() {
+function favEmpresas(){
   document.getElementById('area2').innerHTML = "";
   document.getElementById('loadingArea2').style.display= 'inline';
+  document.getElementById('msjPromo').style.display= 'none';
+  document.getElementById('msjEmpresas').style.display= 'none';
   axios({
     url:'../../backend/api/empresasFavoritas.php?idUsuario='+id,
     method: 'get',
     dataType: 'json',
   }).then((resp)=>{
-    console.log(resp.data);
-    for (let i in resp.data) {
+    if(resp.data==null){
+      document.getElementById('msjEmpresas').style.display= 'inline';
+      document.getElementById('loadingArea2').style.display= 'none';
+    }
     document.getElementById('loadingArea2').style.display= 'none';
+    for (let i in resp.data) {
       document.getElementById('area2').innerHTML += `
       <div class="col-xl-3 col-lg-4 col-mol-6 col-12">
       <div class="row row-cols-1 row-cols-md-2" >
@@ -163,12 +170,17 @@ function favEmpresas() {
 function favPromo() {
   document.getElementById('area2').innerHTML = "";
   document.getElementById('loadingArea2').style.display= 'inline';
+  document.getElementById('msjPromo').style.display= 'none';
+  document.getElementById('msjEmpresas').style.display= 'none';
   axios({
     url:'../../backend/api/promocionesFavoritas.php?idUsuario='+id,
     method: 'get',
     dataType: 'json',
   }).then((res)=>{
-    console.log(res.data);
+    if(res.data==null){
+      document.getElementById('msjPromo').style.display= 'inline';
+      document.getElementById('loadingArea2').style.display= 'none';
+    }
     axios({
       url:'../../backend/api/empresas.php',
       method: 'GET',
@@ -177,8 +189,8 @@ function favPromo() {
     console.log(resp.data);
     for (let i in res.data) {
       for(let j in resp.data){
+      document.getElementById('loadingArea2').style.display= 'none';
       if(j==res.data[i].idEnterprise){
-          document.getElementById('loadingArea2').style.display= 'none';
           document.getElementById('area2').innerHTML += `
           <div class="col-xl-3 col-lg-4 col-mol-6 col-12">
           <div class="row row-cols-1 row-cols-md-2" >

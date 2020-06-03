@@ -28,7 +28,8 @@
     
       <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <form class="form-inline my-lg-0 ml-auto">
-        <a class="btn btn-outline-primary ml-auto" href="../../backend/class/logout.php">Cerrar sesión</a>
+          <a class="btn btn-outline-primary " style="margin-right:5px;" href="index.php">Principal perfil</a>
+          <a class="btn btn-outline-primary ml-auto" href="../../backend/class/logout.php">Cerrar sesión</a>
         </form>
       </div>
     </nav>

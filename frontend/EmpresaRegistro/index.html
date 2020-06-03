@@ -18,6 +18,7 @@
     <nav>
       <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
         <img src="img/LogoFind.png" style="width: 150px">
+        <a class="btn btn-outline-primary ml-auto" href="../landingPage/index.html">Página principal</a>
       </div>
     </nav>
   </header>
@@ -33,7 +34,7 @@
       <form id="formCompany">
         <input type="text" id="nameEnterprise" onkeyup="validarLlenado(this)" name="nameEnterprise" placeholder="Name of the enterprise">
         <div class="advice">Descripción</div>
-        <textarea  name="descriptionEnterprise" onkeyup="validarLlenado(this)" class="second" id="descriptionEnterprise" cols="40" rows="5"></textarea>
+        <textarea  name="descriptionEnterprise" onkeyup="validarLlenado(this)" class="second" id="descriptionEnterprise" cols="40" rows="5" placeholder="Description"></textarea>
         <div class="advice">Foundation date</div>
         <input type="date" id="fundationDate" onkeyup="validarLlenado(this)" name="fundationDate" placeholder="Foundation date">
         <div class="advice">Email</div>
@@ -96,9 +97,15 @@
         <div class="advice2">Latitude and longitude</div>
         <input type="text" name="latitute" onkeyup="validarLatitud(this)" id="latitute" placeholder="[±0-90.000]">
         <input type="text" name="longitude" onkeyup="validarLongitud(this)" id="longitude" placeholder="[±0-180.000]">
-        <input type="file" onchange="subirImagen()" style="margin-top: 15px;" name="urlProfileImage" id="urlProfileImage"></br>
+        <div style="margin-top: 20px;" class="custom-file">
+          <input type="file" class="custom-file-input" onchange="subirImagen()" name="urlProfileImage" id="urlProfileImage" required>
+          <label class="custom-file-label" for="customFile" id="file-label1"></label>
+        </div>
         <div class="advice" >Upload a profile picture</div></br>
-        <input type="file" onchange="subirBanner()" name="urlBanner" id="urlBanner"></br>
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" onchange="subirBanner()" name="urlBanner" id="urlBanner" required>
+          <label class="custom-file-label" for="customFile" id="file-label2"></label>
+        </div>
         <div class="advice">Upload a banner</div></br>
         <button type="button" onclick="registrarEnterprise();" id="btn-register" class="btn-save-changes">Save</button></br>
         <button type="button" onclick="actualizar();" id="btn-actualizar" style="display: none;" class="btn-save-changes">Actualizar</button>
@@ -109,7 +116,6 @@
         <div id="msjError" style="display: none; color: red;">Error, one or more fields are empty, please check.</div>
         <div id="msjActualizado" style="display: none; color: green;">Your data has been updated successfully! <i class="fas fa-check-circle"></i></div>  
       </div>
-   
 
     <footer class="pt-4 my-md-5 pt-md-5">
       <div class="row">

@@ -21,7 +21,7 @@
         case 'PUT':
         break;
         case 'DELETE':
-            //Eliminar            
+            Comentario::eliminarComentario($database->getDB(), $_GET['idPromocion'], $_GET['idComentario'], $_GET['idUsuario']);
         break;
 
     }

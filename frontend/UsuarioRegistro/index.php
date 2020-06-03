@@ -96,7 +96,10 @@
         <div class="advice">CVV, entre 3 y 4 digitos.</div>
         <input type="text" id="cvv" onkeyup="validarCvv(this)" class="fadeIn second" name="cvv" placeholder="CVV">
         <div class="advice" style="margin: 10px 0px 0px;">Upload a profile picture</div></br>
-        <input type="file" onchange="subirImagen()"  name="urlProfileImage" id="urlProfileImage"></br>
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" onchange="subirImagen()" name="urlProfileImage" id="urlProfileImage">
+          <label class="custom-file-label" for="customFile" id="file-label"></label>
+        </div>
         <div class="small-image-profile"  id="smallImage">
         </div>
         <div style="padding-top: 15px;">Before registering, check that no field is incorrect!</div>

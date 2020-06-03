@@ -29,12 +29,24 @@
                 echo json_encode($result);
         }
 
+        public static function eliminarComentario($db, $idPromocion, $idComentario, $idUsuario){
+                $result= $db->getReference("promociones/".$idPromocion."/comentarios"."/".$idComentario)
+                        ->getValue();
+                if($result['idUsuario']==$idUsuario){
+                        $db->getReference("promociones/".$idPromocion."/comentarios"."/")
+                        ->getChild($idComentario)
+                        ->remove();
+                        echo '{"mensaje":"Se eliminó el elemento '.$idComentario.'"}';
+                }else{
+                        echo '{"mensaje":"El usuario no puede eliminar el elemento '.$idComentario.'"}';
+                }
+        }
+
         public function getData(){
             $result['idUsuario'] = $this->idUsuario;
             $result['comentario'] = $this->comentario;
             return $result;
         }
-
 
         /**
          * Get the value of idUsuario

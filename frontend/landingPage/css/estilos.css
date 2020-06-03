@@ -115,7 +115,7 @@ input:focus, select:focus {
 
 
 #card-2{
-    background-color: rgba(17, 16, 15, 0.561);
+    background-color: #094b2f8e;
     margin-left: 20px;
     padding: 20px;
     color: white;
@@ -124,7 +124,7 @@ input:focus, select:focus {
 }
 
 .section{
-    background-color:black;
+    background-color:#094b2f;
     color: white;
     padding: 20px 0px 0px 100px;
 }

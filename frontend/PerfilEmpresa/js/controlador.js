@@ -10,11 +10,11 @@ axios({
     method: 'GET',
     dataType: 'json'
 }).then((res)=>{
-        document.getElementById('banner').innerHTML= ` <img style="width: 1050px; border: #0E7248 20px solid; height:350px;  margin-left: 50px; " src="${res.data.urlBanner}" alt="" srcset="">`;
-        document.getElementById('welcome').innerHTML=`<h1 class="display-4 letter" style="color: #f9a826;">${res.data.nameEnterprise}</h1>`;
-        document.getElementById('logo').innerHTML=`<img class="img-fluid img-thumbnail rounded-circle" style=" margin-top: 30px;  margin-left: 40px; height: 300px; width: 350px;" src="${res.data.urlProfileImage}" alt="" srcset="">`;
+        document.getElementById('banner').innerHTML= ` <img class="shadow text-center" style="width: 1050px; border: #0E7248 20px solid; height:350px;  margin-left: 120px; " src="${res.data.urlBanner}" alt="" srcset="">`;
+        document.getElementById('welcome').innerHTML=`<h1 class="letter" style="margin-top:400px; color: #f9a826;">${res.data.nameEnterprise}</h1>`;
+        document.getElementById('logo').innerHTML=`<img class="float-left rounded-circle" style="margin-left:5px; border: #0E7248 5px solid; margin-top: 100px; height:240px; width: 260px;" src="${res.data.urlProfileImage}" alt="" srcset="">`;
         document.getElementById('information').innerHTML= `<h4>   <b>Name:</b> ${res.data.nameEnterprise}; <b>Country:</b> ${res.data.country}; <b>Address:</b>
-        ${res.data.addressEnterprise}; <b>Phone:</b> ${res.data.phoneNumberEnterprise}; <b>Email:</b> ${res.data.emailEnterprise}; <b>Foundation:</b> ${res.data.fundationDate}</h4>`;
+        ${res.data.addressEnterprise}; <b>Phone:</b> ${res.data.phoneNumberEnterprise}; <b>Email:</b> ${res.data.emailEnterprise}; <b>PostalCode:</b> ${res.data.postalCode}; <b>Foundation:</b> ${res.data.fundationDate}</h4>`;
         document.getElementById('about').innerHTML= res.data.descriptionEnterprise;
 
         axios({
@@ -34,7 +34,7 @@ axios({
                                 
                                 if(k == res.data[i].comentarios[j].idUsuario){
                                         document.getElementById('comments').innerHTML+=`
-                                        <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12">
+                                        <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
                                         <div class="card mx-1" style="margin-top:10px; width: 310px; border-color:white; font-size:20px">
                                         <div class="card-body">
                                         <h5 class="card-title"><img class="rounded-circle img-thumbnail" src="../PerfilUsuario/${usuario.data[k].urlProfileImage}" style="width: 60px; height: 60px;" ><b> ${usuario.data[k].name} ${usuario.data[k].lastName}</b></h5>
@@ -68,8 +68,8 @@ axios({
 function registroSucursales(){
     document.getElementById('area').innerHTML= ''
     document.getElementById('area').innerHTML= `
-    <div class="col-12">
-    <div class="card mb-3 form-group" style="max-width: 640px; margin:auto; font-family: 'Comic Neue', cursive;">
+    <div class="col-12" style="margin-top:10px">
+    <div class="card mb-3 form-group shadow" style="max-width: 640px; margin:auto; font-family: 'Comic Neue', cursive; border: #f9a826 5px solid">
         <div class="row no-gutters">
             <div class="col-md-4">
             <i style="margin: 40px; color:#0b633e" class="fas fa-store fa-10x"></i>
@@ -165,8 +165,8 @@ function agregarSucursales(){
 function registroProductos(){
     document.getElementById('area').innerHTML= ''
     document.getElementById('area').innerHTML= `
-    <div class="col-12">
-    <div class="card mb-3 form-group" style="max-width: 640px; margin:auto; font-family: 'Comic Neue', cursive;">
+    <div class="col-12" style="margin-top:10px">
+    <div class="card mb-3 form-group shadow" style="max-width: 640px; margin:auto; font-family: 'Comic Neue', cursive; border: #f9a826 5px solid">
         <div class="row no-gutters">
             <div class="col-md-4">
             <i style="margin: 40px; color:#0b633e"class="fas fa-cart-arrow-down fa-10x"></i>
@@ -278,8 +278,8 @@ function registroPromociones(){
         $("#loading").hide();
     });
     document.getElementById('area').innerHTML= `
-    <div class="col-12">
-    <div class="card mb-3 form-group" style="text-align:center; max-width: 640px; margin:auto; font-family: 'Comic Neue', cursive;">
+    <div class="col-12" style="margin-top:10px">
+    <div class="card mb-3 form-group shadow" style="text-align:center; max-width: 640px; margin:auto; font-family: 'Comic Neue', cursive; border: #f9a826 5px solid">
         <div class="row no-gutters">
             <div class="col-md-4">
             <i style="margin:40px; color:#0b633e" class="fas fa-parachute-box fa-10x"></i>
@@ -443,6 +443,7 @@ function guardarPromociones(){
                     document.getElementById('startPromo').value= null;
                     document.getElementById('finishPromo').value= null;
                     document.getElementById('urlProductPromoImage').value= null;
+                    sucursalInput.checked = false;
                     document.getElementById("smallImage").innerHTML="";
                 }).catch((error)=>{
                     console.error(error);

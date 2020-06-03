@@ -211,11 +211,14 @@ function actualizarComentarios(){
                 <div class="col-md-4">
                     <img style="width: 70px; height:70px; margin-top:10px; " src="../PerfilUsuario/${resp.data.urlProfileImage}" class="card-img rounded-circle img-thumbnail" alt="...">
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-7">
                     <div class="card-body">
                     <h6 style="margin:0px;" class="card-title"><b>${resp.data.name} ${resp.data.lastName}</b></h6>
                     <p class="card-text">${res.data[i].comentario}</p>
                     </div>
+                </div>
+                <div class="col-md-1">
+                    <i onclick="eliminarComentario('${i}')" style="m-auto; cursor:pointer; color:red" class="far fa-times-circle"></i>
                 </div>
                 </div>
             </div>
@@ -228,6 +231,22 @@ function actualizarComentarios(){
         }}).catch((error2)=>{
             console.error(error2);
         });
+}
+
+
+/*Funcion para eliminar comentario*/
+function eliminarComentario(idComentario){
+    document.getElementById('areaComents').innerHTML="";
+    axios({
+        url:'../../backend/api/comentarios.php?idPromocion=' + idPromocion+ '&idComentario='+idComentario+'&idUsuario='+document.getElementById('idUsuario').value,
+        method:'delete',
+        dataType:'json',
+    }).then((res)=>{
+        console.log(res.data);
+        actualizarComentarios();
+    }).catch((error)=>{
+        console.error(error);
+    });
 }
 
 /* Función para agregar promoción al carrito de compra */
@@ -420,7 +439,7 @@ function calificarPromocion(){
     });
 }
 
-/* Función para visualizar las estrellas en el detalle de la promición*/
+/* Función para visualizar las estrellas en el detalle de la promoción*/
 function generarEstrellas(cant){
     let estrellas = '';
             for (let k = 0; k < cant; k++) {

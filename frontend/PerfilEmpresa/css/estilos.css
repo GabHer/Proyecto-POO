@@ -64,9 +64,6 @@ header{
         display: none;
         
     }
-    #logo{
-        display: none;
-    }
 
     
 }
@@ -80,6 +77,12 @@ input, select{
     margin: 8px!important;
     padding: 5px!important;
     width: 220px;
+    border-radius: 5px;
+}
+
+textarea{
+    border-radius: 5px;
+
 }
 
 #idProductQr{
@@ -142,3 +145,13 @@ input[type=checkbox]{
     .back-to-top:hover {
       opacity: 1;
     }
+
+    .jumbotron{
+        background-color: white!important;
+    }
+
+    .center-block {
+        margin-left:auto;
+        margin-right:auto;
+        display:block;
+  }
